@@ -62,5 +62,5 @@ setup(
 )
 
 
-#upload_to_pypi()
+upload_to_pypi()
 

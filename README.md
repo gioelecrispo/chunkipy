@@ -31,13 +31,13 @@ Here the list of predefined strategies, sorted by priority (the first one is exe
 if the chunk of text is larger than the chunk size, it is further split using a lower priority 
 strategy).
 
-| Priority | Name | Effect                                                              |
-|:--------:| :--- |:--------------------------------------------------------------------|
-|    0     | `split_by_sentences` | It uses `stanza` to split the text into meaningful sentences.       |
-|    1     | `split_by_semicolon` | It splits the text using the semicolon and space `; ` as separator. |
-|    2     | `split_by_colon` | It splits the text using the colon and space `: ` as separator.     |
-|    3     | `split_by_comma` | It splits the text using the comma and space `, ` as separator.     |
-|    4     | `split_by_word` | It splits the text using the space ` ` as separator.                |
+| Priority | Name | Effect                                                               |
+|:--------:| :--- |:---------------------------------------------------------------------|
+|    0     | `split_by_sentences` | It uses `stanza` to split the text into meaningful sentences.        |
+|    1     | `split_by_semicolon` | It splits the text using the semicolon and space `; `  as separator. |
+|    2     | `split_by_colon` | It splits the text using the colon and space `: ` as separator.      |
+|    3     | `split_by_comma` | It splits the text using the comma and space `, ` as separator.      |
+|    4     | `split_by_word` | It splits the text using the space ` ` as separator.                 |
 
 
 
@@ -67,8 +67,10 @@ Hoping to extend the Continental System, his embargo against Britain, Napoleon i
 
 bert_tokenizer = AutoTokenizer.from_pretrained("bert-base-uncased")
 
-print(f"Num of chars: {len(text)}") # --> Num of chars: 3149
-print(f"Num of tokens (using BertTokenizer): {len(bert_tokenizer.encode(text))}") # --> Num of tokens (using BertTokenizer): 603
+print(f"Num of chars: {len(text)}") 
+# --> Num of chars: 3149
+print(f"Num of tokens (using BertTokenizer): {len(bert_tokenizer.encode(text))}") 
+# --> Num of tokens (using BertTokenizer): 603
 
 # This creates an instance of the TextChunkizer class with a chunk size of 512, 
 # using token-based segmentation and a custom tokenizer function bert_tokenizer.encode to count tokens.

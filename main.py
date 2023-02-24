@@ -3,17 +3,10 @@ logging.basicConfig(level=logging.DEBUG)
 
 
 from chunkipy import TextChunkizer, default_tokenizer
-from transformers import AutoTokenizer
+from transformers import AutoTokenizer  # you need to install it
 
 
 if __name__ == "__main__":
-    # Example 0
-    chunkizer = TextChunkizer(10, tokens=False)
-    text = "Prova. Questa è. Capito?"
-    chunks = chunkizer.chunkize(text)
-    for i, chunk in enumerate(chunks):
-        print(f"Chunk {i + 1}: {chunk}")
-
     # Example 1
     text = """Napoleon Bonaparte (born Napoleone Buonaparte; 15 August 1769 – 5 May 1821), later known by his regnal name Napoleon I, was a French military commander and political leader who rose to prominence during the French Revolution and led successful campaigns during the Revolutionary Wars. He was the de facto leader of the French Republic as First Consul from 1799 to 1804, then Emperor of the French from 1804 until 1814 and again in 1815. Napoleon's political and cultural legacy endures to this day, as a highly celebrated and controversial leader. He initiated many liberal reforms that have persisted in society, and is considered one of the greatest military commanders in history. His wars and campaigns are studied by militaries all over the world. Between three and six million civilians and soldiers perished in what became known as the Napoleonic Wars.
     Napoleon was born on the island of Corsica, not long after its annexation by France, to a native family descending from minor Italian nobility. He supported the French Revolution in 1789 while serving in the French army, and tried to spread its ideals to his native Corsica. He rose rapidly in the Army after he saved the governing French Directory by firing on royalist insurgents. In 1796, he began a military campaign against the Austrians and their Italian allies, scoring decisive victories and becoming a national hero. Two years later, he led a military expedition to Egypt that served as a springboard to political power. He engineered a coup in November 1799 and became First Consul of the Republic.
