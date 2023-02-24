@@ -93,7 +93,7 @@ This can be useful, for example, when you want to apply further processing to
 the text parts before creating the final chunks.
 
 
-### Provide a custom text split strategy: 
+### Provide a custom text split strategy
 If you don't want to use `stanza` or you need to use your custom text splitting logic, 
 you can provide it in the constructor, as shown in this example:
 

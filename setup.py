@@ -22,7 +22,7 @@ clean_dist()
 
 
 setup(
-    name='dictipy',
+    name='chunkipy',
     version="0.0.1",
     author='Gioele Crispo',
     author_email='crispogioele@gmail.com',

@@ -20,7 +20,7 @@ def split_by_sentences(text):
 def split_by_separator(text: str, sep: str):
     text = text.split(sep)
     text_pieces = [t + sep for t in text if t != '' and ' ']
-    text_pieces[-1] = text_pieces[-1][:-1].strip()
+    text_pieces[-1] = text_pieces[-1][:-len(sep)]
     return text_pieces
 
 
