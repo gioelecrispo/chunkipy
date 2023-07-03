@@ -1,3 +1,4 @@
+from collections import deque
 from typing import Callable, List
 
 from chunkipy.text_splitter import *
@@ -31,16 +32,11 @@ class TextChunker:
         text_parts = []
         text_elem_count = self.token_estimator.estimate_tokens(text)
         if text_elem_count > self.chunk_size:
-            chunks = self.segment(text)
+            chunks = self._split_text_and_build_chunks(text)
             text_parts.extend(chunks)
         else:
             text_parts.append(text)
         return text_parts
-
-    def segment(self, text):
-        if self.tokens is False:
-            return self._split_text_and_build_chunks(text)
-        return self._split_text_and_build_chunks(text)
 
     def _split_text_and_build_chunks(self, text):
         text_parts_and_counts = self._split_text(text)
@@ -65,39 +61,38 @@ class TextChunker:
 
     def _build_chunks(self, text_parts_and_counts):
         chunks = []
+
         chunk_element_count = 0
-        chunk = ""
+        chunk = []
         overlap_count = 0
-        overlapping = []
+        overlapping = deque()
+
         for text_part, elements_count in text_parts_and_counts:
             if chunk_element_count + elements_count <= self.chunk_size:
                 chunk_element_count += elements_count
-                chunk += text_part
+                chunk.append(text_part)
                 if self.overlap_size > 0:
                     while overlap_count + elements_count > self.overlap_size and overlapping:
-                        _, first_overlapping_count = overlapping.pop(0)
+                        _, first_overlapping_count = overlapping.popleft()
                         overlap_count -= first_overlapping_count
-                    if elements_count <= self.overlap_size:
-                        overlap_count += elements_count
-                        overlapping.append((text_part, elements_count))
             else:
-                chunks.append(chunk.strip())
+                chunks.append("".join(chunk).strip())
                 chunk_element_count = 0
-                chunk = ""
+                chunk = []
                 if self.overlap_size > 0:
                     overlapping_text = "".join([t[0] for t in overlapping])
                     chunk_element_count = overlap_count
-                    chunk = overlapping_text
-                    print(overlap_count, overlapping_text)
+                    chunk = [overlapping_text]
                     overlap_count = 0
-                    overlapping = []
-                    if elements_count <= self.overlap_size:
-                        overlap_count += elements_count
-                        overlapping.append((text_part, elements_count))
+                    overlapping = deque()
 
                 chunk_element_count += elements_count
                 chunk += text_part
 
-        chunks.append(chunk.strip())
-        return [chunk for chunk in chunks if chunk != '' and ' ']
+            if elements_count <= self.overlap_size:
+                overlap_count += elements_count
+                overlapping.append((text_part, elements_count))
+
+        chunks.append("".join(chunk).strip())
+        return chunks
 
