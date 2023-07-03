@@ -1,2 +1,2 @@
-from chunkipy.text_chunkizer import TextChunkizer
-from chunkipy.text_splitter import default_tokenizer
+from chunkipy.text_chunker import TextChunker
+from chunkipy.tokens_estimators import *

@@ -23,7 +23,7 @@ clean_dist()
 
 setup(
     name='chunkipy',
-    version="0.0.1",
+    version="0.0.2",
     author='Gioele Crispo',
     author_email='crispogioele@gmail.com',
     package_dir={'chunkipy': 'chunkipy'},

@@ -7,10 +7,6 @@ import logging
 logging.getLogger('stanza').disabled = True
 
 
-def default_tokenizer(text):
-    return [t for t in text.split(" ") if t != '' and ' ']
-
-
 def split_by_sentences(text):
     lang = langdetect.detect(text)
     sentence_tokenizer = stanza.Pipeline(lang=lang, processors='tokenize', download_method=DownloadMethod.REUSE_RESOURCES)
