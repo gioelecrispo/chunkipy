@@ -14,13 +14,15 @@ to chunk text so that it does not exceed the input size of **neural networks** s
 but it could be used for several other use cases.
 
 The library offers some useful features:
-- **Tokenizer function**: unlike other text chunking libraries, `chunkipy` offers the possibility of
-  providing a tokenizer function, in order to build the chunks taking into account the tokenizer
+- **Token estimation**: unlike other text chunking libraries, `chunkipy` offers the possibility of
+  providing a token estimator function, in order to build the chunks taking into account the tokenizer
   that will use those chunks.
 - **Split text into meaningful sentences**: in its default configuration, `chunkipy`,
   in creating the chunks, avoids cutting sentences, and always tries to have a complete and syntactically correct sentence.
   This is achieved through the use of the `stanza` library, which utilizes semantic models to cut text
   into meaningful sentences.
+- **Smart Overlapping**: `chunkipy` offers the possibility to define an `overlap_percentage` and create overlapping chunks to
+  preserve the context along chunks. 
 - **Flexibility in choosing split strategies**: Additionally, `chunkipy` offers complete flexibility
   in choosing how to split, allowing users to define their own text splitting function or choose from a list
   of pre-defined splitting strategies.
@@ -99,10 +101,48 @@ As you can see, `chunkipy` created chunks smaller than the given input size,
 `512`, counted the tokens using BERT's tokenizer, and didn't cut sentences in half,
 producing syntactically correct chunks of text.
 
-You can also use `TextChunker`'s `segment()` method to split a text into smaller parts
+You can also use `TextChunker`'s `split_text()` method to split a text into smaller parts
 without actually creating the chunks.
 This can be useful, for example, when you want to apply further processing to
 the text parts before creating the final chunks.
+
+### Overlapping
+`TextChunker` provides you with the *overlap* functionality.
+The system aims to ensure that the last text parts of each segment do not exceed the maximum token limit defined for overlap. 
+For example, if the `chunk_size` is set to 100 and the `overlap_percentage` is 0.1, the maximum number of overlapping tokens is 10. 
+Consequently, if there are sentences or text parts that fit within this token limit, they are added at the beginning of the next segment. 
+If not, they are skipped to maintain a good ratio between overlap and content. 
+
+```python
+text_chunker = TextChunker(50, tokens=True, overlap_percent=0.3)
+
+# Set up test input
+text = "In this unit test, we are evaluating the overlapping functionality." \
+       "This is a feature of the TextChunker class, which is important for a proper context keeping. The " \
+       "goal is to ensure that overlapping chunks are generated correctly. For this purpose, we have chosen a " \
+       "long text that exceeds 100 tokens. By setting the overlap_percent to 0.3, we expect the " \
+       "generated chunks to have an overlap of approximately 30%. This will help us verify the effectiveness " \
+       "of the overlapping feature. The TextChunker class should be able to handle this scenario and " \
+       "produce the expected results. Let's proceed with running the test and asserting the generated chunks " \
+       "for proper overlap. "
+
+# Generate chunks with overlapping
+chunks = text_chunker.chunk(text)
+
+# Print the resulting chunks
+for i, chunk in enumerate(chunks):
+    print(f"Chunk {i + 1}: {chunk}")
+```
+
+
+This would output:
+
+```
+Chunk 1: In this unit test, we are evaluating the overlapping functionality. This is a feature of the TextChunker class, which is important for a proper context keeping. The goal is to ensure that overlapping chunks are generated correctly. For this purpose, we have chosen a long text that exceeds 100 tokens.
+Chunk 2: For this purpose, we have chosen a long text that exceeds 100 tokens. By setting the overlap_percent to 0.3, we expect the generated chunks to have an overlap of approximately 30%. This will help us verify the effectiveness of the overlapping feature.
+Chunk 3: This will help us verify the effectiveness of the overlapping feature. The TextChunker class should be able to handle this scenario and produce the expected results. Let's proceed with running the test and asserting the generated chunks for proper overlap.
+
+```
 
 
 ### Provide a custom text split strategy

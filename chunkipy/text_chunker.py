@@ -39,10 +39,10 @@ class TextChunker:
         return text_parts
 
     def _split_text_and_build_chunks(self, text):
-        text_parts_and_counts = self._split_text(text)
+        text_parts_and_counts = self.split_text(text)
         return self._build_chunks(text_parts_and_counts)
 
-    def _split_text(self, text):
+    def split_text(self, text):
         split_strategy = 0
         yield from self._validate_and_split(text, split_strategy)
 
