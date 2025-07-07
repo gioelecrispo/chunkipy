@@ -2716,16 +2716,15 @@ typing-extensions = ">=3.7.4.3"
 
 [[package]]
 name = "typing-extensions"
-version = "4.14.0"
+version = "4.14.1"
 description = "Backported and Experimental Type Hints for Python 3.9+"
 optional = false
 python-versions = ">=3.9"
 groups = ["main", "test"]
 files = [
-    {file = "typing_extensions-4.14.0-py3-none-any.whl", hash = "sha256:a1514509136dd0b477638fc68d6a91497af5076466ad0fa6c338e44e359944af"},
-    {file = "typing_extensions-4.14.0.tar.gz", hash = "sha256:8676b788e32f02ab42d9e7c61324048ae4c6d844a399eebace3d4979d75ceef4"},
+    {file = "typing_extensions-4.14.1-py3-none-any.whl", hash = "sha256:d1e1e3b58374dc93031d6eda2420a48ea44a36c2b4766a4fdeb3710755731d76"},
+    {file = "typing_extensions-4.14.1.tar.gz", hash = "sha256:38b39f4aeeab64884ce9f74c94263ef78f3c22467c8724005483154c26648d36"},
 ]
-markers = {main = "extra == \"openai-splitter\" or extra == \"openai\" or extra == \"spacy-splitter\" or extra == \"stanza-splitter\"", test = "python_version == \"3.10\""}
 
 [[package]]
 name = "typing-inspection"
@@ -2902,4 +2901,4 @@ stanza-splitter = ["langdetect", "stanza"]
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.10,<3.13"
-content-hash = "3ad3dae309343e54715243ea321f93fd92b4932ef0334816abd8cc312edad1d3"
+content-hash = "319d583d8709314b60349aed568bbacd235436237fd66d3eca1a5f4a0e667325"

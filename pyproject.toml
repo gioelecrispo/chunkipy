@@ -24,6 +24,7 @@ classifiers = [
 
 [tool.poetry.dependencies]
 python = ">=3.10,<3.13"
+typing-extensions = "^4.14.1"
 langdetect = { version = ">=1.0.9", optional = true }
 stanza = { version = ">=1.4.2", optional = true }
 spacy = { version = ">=3.7.0", optional = true }
