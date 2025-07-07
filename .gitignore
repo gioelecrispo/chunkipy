@@ -1,8 +1,15 @@
 # IDE
 .idea
+.vscode
+
+# test
+.pytest_cache/
+
+
 
 # Project resources e libraries
 resources/
+.venv/
 venv/
 bin/
 lib/
@@ -59,3 +66,8 @@ coverage.xml
 
 # Sphinx documentation
 docs/build/
+!docs/build/html/
+!docs/build/html/index.htm
+
+# VS Code
+.vscode/
