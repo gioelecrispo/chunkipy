@@ -2,9 +2,8 @@ name: CI Workflow
 
 on:
   push:
-    branches: ["**"]  # Execute on any branch
     tags: ["*"]  # Execute on any tag
-    branches-ignore:
+    branches-ignore:  # Execute on any branch except these
       - gh-pages
       - docs/*
   pull_request:
