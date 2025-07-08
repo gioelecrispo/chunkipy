@@ -4,7 +4,7 @@ Welcome to Chunkipy's documentation!
 ====================================
 
 .. toctree::
-   :maxdepth:
+   :maxdepth: 2
    :caption: Contents:
 
    installation
