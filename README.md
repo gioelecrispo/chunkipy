@@ -169,12 +169,13 @@ sphinx-multiversion docs/source docs/build/html
 
 
 ### Testing
-We use pytest as main testing framework. 
+We use `pytest` as main testing framework. 
 You can install al the testing dependencies by running: 
 
 ```bash
 poetry install --with test
 ```
+
 Once done, you can run all the unit test (and check the coverage) with this command from the project folder:
 
 ```bash

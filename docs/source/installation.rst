@@ -17,3 +17,11 @@ If you want you can install it with optional dependencies:
 
     # you can combine them, e.g. spacy to split and tiktoken (openai) to count the tokens
     pip install chunkipy[openai-splitter, openai-estimator]
+
+You can also install it with all the optional dependencies:
+
+.. code-block:: bash
+
+    pip install chunkipy[all]
+
+
