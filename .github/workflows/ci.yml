@@ -39,7 +39,7 @@ jobs:
         run: pip install poetry
 
       - name: Install test dependencies
-        run: poetry install --with test --without docs
+        run: poetry install --only main,test --without docs
 
       - name: Run tests with coverage
         run: |
