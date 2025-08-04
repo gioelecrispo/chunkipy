@@ -67,6 +67,8 @@ coverage.xml
 # Sphinx documentation
 docs/build/
 !docs/build/html/index.html
+!docs/build/html/v0.0.3/
+!docs/build/html/v0.0.2/
 
 # VS Code
 .vscode/

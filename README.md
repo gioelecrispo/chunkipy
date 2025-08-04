@@ -138,7 +138,7 @@ Contributions are welcome! Just fork the repository, create a new branch with yo
 ### Development 
 To start developing chunkipy, it is recommended to: 
 
-1. Create a virtual environment
+1. Create a virtual environment (e.g. `python -m venv .venv`) and activate it
 2. Install poetry via `pip install poetry`
 3. Install the development dependencies via one of these commands:
 
