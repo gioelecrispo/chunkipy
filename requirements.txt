@@ -1,2 +1,0 @@
-stanza==1.4.2
-langdetect==1.0.9

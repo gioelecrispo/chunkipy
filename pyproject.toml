@@ -1,0 +1,61 @@
+[tool.poetry]
+name = "chunkipy"
+version = "1.0.0"
+description = "Chunkipy is an easy-to-use library for chunking text based on the size estimator function you provide."
+authors= ["Gioele Crispo <crispogioele@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+repository = "https://github.com/gioelecrispo/chunkipy"
+keywords = ["text", "chunking", "NLP", "tokenization"]
+classifiers = [
+    "Development Status: 5 Production/Stable",
+    "Intended Audience: Developers",
+    "License:: OSI Approved :: MIT License",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language: Implementation:: PyPy",
+    "Topic:: Software Development:: Libraries:: Python Modules",
+]
+
+[tool.poetry.dependencies]
+python = ">=3.10,<3.13"
+typing-extensions = "^4.14.1"
+langdetect = { version = ">=1.0.9", optional = true }
+stanza = { version = ">=1.4.2", optional = true }
+spacy = { version = ">=3.7.0", optional = true }
+openai = { version = ">=1.88.0", optional = true }
+tiktoken = { version = ">=0.9.0", optional = true }
+
+
+[tool.poetry.extras]
+stanza-splitter = ["langdetect", "stanza"]
+spacy-splitter = ["langdetect", "spacy"]
+openai-splitter = ["openai"]
+openai-estimator = ["tiktoken"]
+openai = ["tiktoken", "openai"]
+
+[tool.poetry.group.test.dependencies]
+pytest = "^7.0"
+pytest-cov = "^6.2.1"
+
+[tool.poetry.group.docs.dependencies]
+sphinx = ">=8.0.0"
+sphinx-autodoc-typehints = ">=3.0.0"
+sphinx-multiversion = "^0.2.4"
+sphinx-rtd-theme = "^3.0.0"
+
+[build-system]
+requires = ["poetry-core>=1.2.0"]
+build-backend = "poetry.core.masonry.api"
+
+
+[tool.sphinx]
+source-dir = "docs/source"
+build-dir = "docs/build"
+all-files = true
+
+[tool.sphinx.upload]
+upload-dir = "docs/build/html"

@@ -1,0 +1,85 @@
+name: Release and Publish with Poetry
+
+on:
+  push:
+    tags:
+      - "v*.*.*"  # Trigger on tags like v1.0.0
+
+permissions:
+  contents: write  # needed to create a GitHub release
+
+jobs:
+  build:
+    name: Build package with Poetry
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Poetry
+        run: pip install poetry
+
+      - name: Configure Poetry (disable virtualenv)
+        run: poetry config virtualenvs.create false
+
+      - name: Install dependencies
+        run: poetry install --no-root
+
+      - name: Build the package
+        run: poetry build
+
+      - name: Upload dist artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist-files
+          path: dist/
+
+  pypi-publish:
+    name: Publish to PyPI with Poetry
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Download dist artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: dist-files
+          path: dist/
+
+      - name: Install Poetry
+        run: pip install poetry
+
+      - name: Publish to PyPI
+        env:
+          POETRY_PYPI_TOKEN_PYPI: ${{ secrets.PYPI_API_TOKEN }}
+        run: poetry publish --no-interaction --username __token__ --password $POETRY_PYPI_TOKEN_PYPI
+
+  github-release:
+    name: Create GitHub Release
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Download dist artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: dist-files
+          path: dist/
+
+      - name: Create release notes (basic)
+        run: |
+          echo "## Changes in this release" > release-notes.md
+          git log -1 --pretty=format:"- %s" >> release-notes.md
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.ref_name }}
+          name: Release ${{ github.ref_name }}
+          body_path: release-notes.md
+          files: |
+            dist/*.tar.gz
+            dist/*.whl
