@@ -1,5 +1,4 @@
 from typing import List
-import langdetect
 from chunkipy.text_splitters.semantic.base_semantic_text_splitter import BaseSemanticTextSplitter
 from chunkipy.utils import import_dependencies
 
@@ -15,6 +14,10 @@ class StanzaSentenceTextSplitter(BaseSemanticTextSplitter):
     """
 
     def _split(self, text: str) -> List[str]:
+        langdetect = import_dependencies(
+            extra="spacy-sentence", 
+            package_name="langdetect"
+        )
         _, DownloadMethod, Pipeline = import_dependencies(
             extra="sentence",
             package_name="stanza",

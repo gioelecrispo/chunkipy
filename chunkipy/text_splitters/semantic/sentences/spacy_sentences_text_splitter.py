@@ -1,7 +1,7 @@
 import logging
 from typing import Dict, List
 from chunkipy.text_splitters.semantic.base_semantic_text_splitter import BaseSemanticTextSplitter
-import langdetect
+
 
 from chunkipy.utils import MissingDependencyError, import_dependencies
 
@@ -57,6 +57,10 @@ class SpacySentenceTextSplitter(BaseSemanticTextSplitter):
 
 
     def _split(self, text: str) -> List[str]:
+        langdetect = import_dependencies(
+            extra="spacy-sentence", 
+            package_name="langdetect"
+        )
         lang = langdetect.detect(text)
         sentence_tokenizer = self._load_model(lang)
         with sentence_tokenizer.select_pipes(enable=["tok2vec", "parser", "senter"]):
