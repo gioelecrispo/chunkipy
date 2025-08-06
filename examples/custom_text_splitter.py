@@ -5,7 +5,7 @@ from chunkipy.text_splitters.base_text_splitter import BaseTextSplitter
 if __name__ == "__main__":
     text = "This is a small text -> with custom split strategy."
 
-    class ArrowTextSplitter (BaseTextSplitter):
+    class ArrowTextSplitter(BaseTextSplitter):
         def split(self, text):
             return [t for t in text.split("->") if t != '' and t != ' ']
 

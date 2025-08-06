@@ -22,30 +22,10 @@ The library offers some useful features:
 - **Flexibility in choosing split strategies**: Additionally, `chunkipy` offers complete flexibility in choosing how to split, allowing users to define their own text splitting function or choose from a list of pre-defined text spliters.
 
 ## Documentation
-Check the documentation at [chunkipy.gioelecrispo.github.io](https://chunkipy.gioelecrispo.github.io).
+For **Installation**, **Usage**, and **API documentation**, please refer to the [documentation](https://chunkipy.gioelecrispo.github.io).
 
-By default, `chunkipy` uses `stanza` are main text splitting method; however, if `stanza` produces
-sentences with a number of tokens greater than the chunk size, other split strategy are used.
-Here the list of predefined strategies, sorted by priority (the first one is executed first,
-if the chunk of text is larger than the chunk size, it is further split using a lower priority
-strategy).
+You can also check the [examples](https://chunkipy.gioelecrispo.github.io/examples) directory for more usage scenarios.
 
-| Priority | Name | Effect                                                               |
-|:--------:| :--- |:---------------------------------------------------------------------|
-|    0     | `split_by_sentences` | It uses `stanza` to split the text into meaningful sentences.        |
-|    1     | `split_by_semicolon` | It splits the text using the semicolon and space `; `  as separator. |
-|    2     | `split_by_colon` | It splits the text using the colon and space `: ` as separator.      |
-|    3     | `split_by_comma` | It splits the text using the comma and space `, ` as separator.      |
-|    4     | `split_by_word` | It splits the text using the space ` ` as separator.                 |
-
-
-
-## Installation
-You can install `chunkipy` using pip:
-
-```bash
-pip install chunkipy
-```
 
 ## Usage
 The main class in `chunkipy` is `TextChunker`, which takes a text and splits it into chunks of a given size.

@@ -1,5 +1,6 @@
+import logging
 from typing import Dict, List
-from chunkipy.text_splitters.semantic.base_semantic_text_splitter import BaseTextSemanticSplitter
+from chunkipy.text_splitters.semantic.base_semantic_text_splitter import BaseSemanticTextSplitter
 import langdetect
 
 from chunkipy.utils import MissingDependencyError, import_dependencies
@@ -14,8 +15,7 @@ Check https://spacy.io/usage to see all the models available.
 """
 
 
-
-class SpacyTextSentenceSplitter(BaseTextSemanticSplitter):
+class SpacySentenceTextSplitter(BaseSemanticTextSplitter):
     """Sentence splitter using spaCy for semantic text splitting.
     This class uses spaCy to split text into sentences based on the language detected in the text.
     It supports multiple languages by loading different spaCy models based on the detected language.
@@ -28,9 +28,12 @@ class SpacyTextSentenceSplitter(BaseTextSemanticSplitter):
     """
     
     DEFAULT_LANG = "en"
+    DEFAULT_MODELS_MAP = {
+        "en": "en_core_web_sm"
+    }
 
-    def __init__(self, models_map: Dict [str, str], text_limit: int = None):
-        super()._init__(text_limit)
+    def __init__(self, models_map: Dict [str, str] = DEFAULT_MODELS_MAP, text_limit: int = None):
+        super().__init__(text_limit)
         self.models_map = models_map
         self.models = dict()
 
@@ -42,12 +45,15 @@ class SpacyTextSentenceSplitter(BaseTextSemanticSplitter):
 
         if lang not in self.models_map:
             lang = self.DEFAULT_LANG
+            logging.warning(
+                f"Language '{lang}' not supported. Defaulting to '{self.DEFAULT_LANG}'. If you want to use a different language, please provide a valid model name in the 'models_map' parameter, e.g. models_map['it'] = 'it_core_news_sm'."
+            )
         if lang not in self.models:
             try:
-                self.models [lang] = spacy.load(self.models_map[lang])
+                self.models[lang] = spacy.load(self.models_map[lang])
             except OSError as e:
-                raise MissingDependencyError (SPACY_INSTRUCTIONS.format(model_name=self.models_map[lang])) from e
-        return self.models [lang]
+                raise MissingDependencyError(SPACY_INSTRUCTIONS.format(model_name=self.models_map[lang])) from e
+        return self.models[lang]
 
 
     def _split(self, text: str) -> List[str]:

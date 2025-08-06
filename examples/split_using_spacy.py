@@ -1,11 +1,11 @@
 from chunkipy import TextChunker
 from chunkipy.size_estimators import WordSizeEstimator
-from chunkipy.text_splitters.semantic.sentences import SpacyTextSentenceSplitter
+from chunkipy.text_splitters.semantic.sentences import SpacySentenceTextSplitter
 from chunkipy.size_estimators.openai_size_estimator import OpenAISizeEstimator
 
 if __name__ == "__main__":
 
-    with open("texts/napoleon.txt", "r") as file:
+    with open("examples/texts/napoleon.txt", "r") as file:
         text = file.read()
 
     word_size_estimator = WordSizeEstimator()
@@ -15,7 +15,7 @@ if __name__ == "__main__":
     print(f"Num of tokens (using WordSizeEstimator): {word_size_estimator.estimate_size(text)}")
     print(f"Num of tokens (using OpenAISizeEstimator): {openai_size_estimator.estimate_size(text)}")
 
-    spacy_text_splitter = SpacyTextSentenceSplitter()
+    spacy_text_splitter = SpacySentenceTextSplitter()
 
     models_map={
         "en": "en_core_web_sm",

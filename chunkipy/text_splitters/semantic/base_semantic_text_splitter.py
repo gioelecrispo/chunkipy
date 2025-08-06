@@ -3,7 +3,7 @@ from typing import List
 from chunkipy.text_splitters.base_text_splitter import BaseTextSplitter
 
 
-class BaseTextSemanticSplitter(BaseTextSplitter):
+class BaseSemanticTextSplitter(BaseTextSplitter):
     DEFAULT_TEXT_LIMIT = 1000000
 
     def __init__(self, text_limit: int = None):

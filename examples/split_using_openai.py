@@ -7,7 +7,7 @@ from chunkipy import TextChunker
 from chunkipy.size_estimators.openai_size_estimator import OpenAISizeEstimator
 
 if __name__ == "__main__":
-    with open("examples/napoleon.txt", "r") as file:
+    with open("examples/texts/napoleon.txt", "r") as file:
         text = file.read()
 
     openai_size_estimator = OpenAISizeEstimator()

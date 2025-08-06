@@ -6,11 +6,10 @@
 .pytest_cache/
 
 
-
 # Project resources e libraries
-resources/
 .venv/
 venv/
+resources/
 bin/
 lib/
 lib64/

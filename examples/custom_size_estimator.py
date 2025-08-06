@@ -1,37 +1,22 @@
+from chunkipy.size_estimators.base_size_estimator import BaseSizeEstimator
 from chunkipy import TextChunker
-from chunkipy.size_estimators import BaseSizeEstimator, WordSizeEstimator
-from transformers import AutoTokenizer  # you need to install it separately
 
 
+class HalfLengthSizeEstimator(BaseSizeEstimator):
+    def estimate_size(self, text):
+        # Implement your custom size estimation logic here
+        return int(len(text)/2)  # Example: return half the length of the text as the size
+
+    
 if __name__ == "__main__":
+    # Create an instance of the custom size estimator
+    half_length_size_estimator = HalfLengthSizeEstimator()
 
-    with open("examples/napoleon.txt", "r") as file:
-        text = file.read()
-
-    class BertSizeEstimator(BaseSizeEstimator):
-
-        def __init__(self):
-            self.bert_tokenizer = AutoTokenizer.from_pretrained("bert-base-uncased")
-
-        def estimate_size(self, text):
-            return len(self.bert_tokenizer.encode(text))
-
-
-    word_size_estimator = WordSizeEstimator()
-    bert_size_estimator = BertSizeEstimator()
-
-    print(f"Num of chars: {len(text)}")
-    print(f"Num of tokens (using WordSizeEstimator): {word_size_estimator.estimate_size(text)}")
-    print(f"Num of tokens (using BertSizeEstimator): {bert_size_estimator.estimate_size(text)}")
-
-    # Results:
-    # Num of chars: 3149
-    # Num of tokens (using WordSizeEstimator): 520
-    # Num of tokens (using BertSizeEstimator): 603
-    
-    # set the tokens flag to False for chunking by chars
-    text_chunker = TextChunker(512, tokens=True, size_estimator=bert_size_estimator)
+    # Use the custom size estimator in a TextChunker
+    text_chunker = TextChunker(chunk_size=100, tokens=True, size_estimator=half_length_size_estimator)
+    text = "This is a sample text that will be chunked using a custom size estimator."
     chunks = text_chunker.chunk(text)
-    
+
+    # Print the resulting chunks
     for i, chunk in enumerate(chunks):
-        print(f"Chunk (i+1): {chunk}")
+        print(f"Chunk {i + 1}: {chunk}")

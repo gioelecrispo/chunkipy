@@ -20,7 +20,7 @@ class MissingDependencyError(Exception):
 
 
 def import_dependencies(extra: str, package_name: str, attribute_names: List[str] = []):
-    module=None
+    module = None
     attributes = tuple(None for _ in attribute_names)
     try:
         module = importlib.import_module(package_name)
@@ -29,5 +29,5 @@ def import_dependencies(extra: str, package_name: str, attribute_names: List[str
         raise MissingDependencyError(
             format_instructions(package_name=package_name, extra=extra)
         ) from e
-    imports = [module, attributes] if attributes else module
+    imports = [module, *attributes] if attributes else module
     return imports
