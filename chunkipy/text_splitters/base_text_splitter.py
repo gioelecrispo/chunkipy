@@ -25,7 +25,7 @@ class BaseTextSplitter(ABC):
         Validate the input text.
         """
         if text is None or not isinstance(text, str):
-            raise ValueError(f"Text must be a non-empty string. Current value: {text}")
+            raise TypeError(f"Text must be a non-empty string. Current value: {text}")
         if not text.strip():
             raise ValueError("Text cannot be empty or whitespace only.")
 

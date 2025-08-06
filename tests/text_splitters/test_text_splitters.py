@@ -1,6 +1,6 @@
 import unittest
-from chunkipy.text_splitters import SemicolonTextSplitter, CommaTextSplitter, WordTextSplitter, NewlineTextSplitter
-from chunkipy.text_splitters.basic_text_splitters import FullStopTextSplitter
+from chunkipy.text_splitters import SemicolonTextSplitter, CommaTextSplitter, WordTextSplitter, NewlineTextSplitter, FullStopTextSplitter
+
 
 class TestTextSplitter(unittest.TestCase):
     def test_split_text_by_delimiter(self):
