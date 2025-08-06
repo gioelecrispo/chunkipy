@@ -161,8 +161,38 @@ Here is an example of how to create a custom text splitter:
 This example demonstrates how to create a custom text splitter that splits the text based on a specific delimiter (``->`` in this case). You can modify the `split` method to implement any custom logic you need for splitting the text.
 
 
-Custom Size Estimators
+Size Estimators
 --------------------------
+
+Prebuilt Size Estimators
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Chunkipy provides several prebuilt size estimators that can be used to estimate the size of text chunks based on different criteria.
+For example, you can use the ``WordSizeEstimator`` to estimate the size of text based on the number of words, or the ``CharacterSizeEstimator`` to estimate the size based on the number of characters.
+Here is an example of how to use the ``WordSizeEstimator``:
+
+.. code-block:: python
+
+    from chunkipy import TextChunker
+    from chunkipy.size_estimators import WordSizeEstimator
+
+    word_size_estimator = WordSizeEstimator()
+
+    text_chunker = TextChunker(
+        chunk_size=200,
+        overlap_ratio=0.25,
+        tokens=True,
+        size_estimator=word_size_estimator
+    )
+
+    text = "This is a sample text that will be chunked based on word size estimation."
+    chunks = text_chunker.chunk(text)
+
+    for i, chunk in enumerate(chunks):
+        print(f"Chunk {i + 1}: {chunk}")
+        
+
+Custom Size Estimators
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 Chunkipy also allows you to define your own custom size estimators by implementing the ``BaseSizeEstimator`` interface.
 This gives you the flexibility to create size estimators that suit your specific requirements, such as estimating the size of text based on custom criteria or using different tokenization methods.
 Here is an example of how to create a custom size estimator:
