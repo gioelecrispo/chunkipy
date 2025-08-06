@@ -8,24 +8,24 @@ Development
 ------------------
 To start developing chunkipy, it is recommended to: 
 
-1. Create a virtual environment (e.g. `python -m venv .venv`) and activate it
-2. Install poetry via `pip install poetry`
+1. Create a virtual environment (e.g. ``python -m venv .venv``) and activate it
+2. Install poetry via ``pip install poetry``
 3. Install the development dependencies via one of these commands:
 
 .. code-block:: bash
     poetry install  # no extra dependencies
-    poetry install --extra  spacy-splitter
-    poetry install --extra  openai-splitter,openai-estimator  # multiple extras dependencies
+    poetry install --extra spacy-splitter
+    poetry install --extra openai-splitter,openai-estimator  # multiple extras dependencies
     poetry install --all-extras  # all the extras dependencies
 
 
 
 Documentation
 ------------------
-`chunkipy` relies on python docstrings and `sphinx` for its documentation.
-`sphinx-autosummary` is used to automatically generate documentation from code.
+``chunkipy`` relies on python docstrings and ``sphinx`` for its documentation.
+``sphinx-autosummary`` is used to automatically generate documentation from code.
 
-`sphinx-multiversion` is used to provide multiversion support, i.e. you can navigation documention for past version too.
+``sphinx-multiversion`` is used to provide multiversion support, i.e. you can navigation documention for past version too.
 
 This is handled via Github Action, but you can reproduce it by installing the needed dependencies:
 
@@ -41,7 +41,7 @@ and then by running the following command:
 
 Testing
 ------------------
-We use `pytest` as main testing framework. 
+We use ``pytest`` as main testing framework. 
 You can install al the testing dependencies by running: 
 
 .. code-block:: bash

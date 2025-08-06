@@ -9,11 +9,12 @@ Chunk Size and Token Counting
 -----------------------------
 Chunkipy allows you to specify the chunk size in either characters or tokens.
 By default, it counts characters, but you can set it to count tokens instead. This flexibility is particularly useful for applications that require token-based processing, such as working with language models like OpenAI's GPT.
-You can easily switch between character and token counting by setting the `tokens` parameter when creating a
-`TextChunker` instance.
-`tokens = False` by default, so it will count characters. If you want to count tokens, set it to True.
+You can easily switch between character and token counting by setting the ``tokens`` parameter when creating a
+``TextChunker`` instance.
+``tokens = False`` by default, so it will count characters. If you want to count tokens, set it to True.
 
-Here is an example of how to create a `TextChunker` instance with character counting:
+Here is an example of how to create a ``TextChunker`` instance with character counting:
+
 .. code-block:: python
 
     from chunkipy import TextChunker
@@ -23,7 +24,7 @@ Here is an example of how to create a `TextChunker` instance with character coun
     chunks = text_chunker.chunk(text)
     print(chunks)
 
-And here is an example of how to create a `TextChunker` instance with token counting:
+And here is an example of how to create a ``TextChunker`` instance with token counting:
 
 .. code-block:: python
 
@@ -39,7 +40,7 @@ And here is an example of how to create a `TextChunker` instance with token coun
 Overlapping
 --------------------------
 Chunkipy also supports overlapping chunks, which can be useful for preserving context across chunks.
-You can define an `overlap_percentage` to create overlapping chunks, ensuring that important context is
+You can define an ``overlap_percentage`` to create overlapping chunks, ensuring that important context is
 not lost when splitting the text.
 
 Here is an example of how to create overlapping chunks:
@@ -79,8 +80,8 @@ You can also create your own custom text splitter if the built-in ones do not me
 Prebuilt Basic Text Splitters
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 Chunkipy includes several prebuilt text splitters that can be used to split text into chunks based on different criteria.
-For example, you can use the `WordTextSplitter` to split text into chunks based on word boundaries, or the `CharacterTextSplitter` to split text into chunks based on character count.
-Here is an example of how to use the `WordTextSplitter`:
+For example, you can use the ``WordTextSplitter`` to split text into chunks based on word boundaries, or the ``CharacterTextSplitter`` to split text into chunks based on character count.
+Here is an example of how to use the ``WordTextSplitter``:
 
 .. code-block:: python
 
@@ -108,7 +109,7 @@ Prebuilt Sentence Text Splitters
 
 You can also use Chunkipy with different splitters and estimators. 
 For example, you can use the Stanza or SpaCy splitters to handle more complex text structures.
-Remember to install the optional dependencies, i.e. `pip install chunkipy[stanza-splitter]` or `pip install chunkipy[spacy-splitter]`, if you want to use these features.
+Remember to install the optional dependencies, i.e. ``pip install chunkipy[stanza-splitter]`` or ``pip install chunkipy[spacy-splitter]``, if you want to use these features.
 
 .. code-block:: python
     from chunkipy import TextChunker
@@ -126,12 +127,12 @@ Remember to install the optional dependencies, i.e. `pip install chunkipy[stanza
     text = "This is a sample text that will be split into chunks based on sentence boundaries."
     chunks = text_chunker.chunk(text)   
 
-In the example above, we use the prebuilt `StanzaSentenceTextSplitter` to split the text into chunks based on sentence boundaries.
-You can also use the `SpacySentenceTextSplitter` in a similar way. There is a script called `split_using_spacy.py` in the `examples` directory of the chunkipy repository that demonstrates how to use SpaCy. 
+In the example above, we use the prebuilt ``StanzaSentenceTextSplitter`` to split the text into chunks based on sentence boundaries.
+You can also use the ``SpacySentenceTextSplitter`` in a similar way. There is a script called ``split_using_spacy.py`` in the ``examples`` directory of the chunkipy repository that demonstrates how to use SpaCy.
 
 Custom Text Splitters
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-If the built-in splitters do not meet your needs, you can create your own custom text splitter by implementing the `TextSplitter` interface.
+If the built-in splitters do not meet your needs, you can create your own custom text splitter by implementing the ``TextSplitter`` interface.
 This gives you full control over how the text is split into chunks, enabling you to create highly specialized chunking behavior tailored to your specific needs.
 
 
@@ -157,12 +158,12 @@ Here is an example of how to create a custom text splitter:
     for i, chunk in enumerate(chunks):
         print(f"Chunk {i + 1}: {chunk}")
 
-This example demonstrates how to create a custom text splitter that splits the text based on a specific delimiter (`->` in this case). You can modify the `split` method to implement any custom logic you need for splitting the text.
+This example demonstrates how to create a custom text splitter that splits the text based on a specific delimiter (``->`` in this case). You can modify the `split` method to implement any custom logic you need for splitting the text.
 
 
 Custom Size Estimators
 --------------------------
-Chunkipy also allows you to define your own custom size estimators by implementing the `BaseSizeEstimator` interface.
+Chunkipy also allows you to define your own custom size estimators by implementing the ``BaseSizeEstimator`` interface.
 This gives you the flexibility to create size estimators that suit your specific requirements, such as estimating the size of text based on custom criteria or using different tokenization methods.
 Here is an example of how to create a custom size estimator:
 
@@ -190,5 +191,5 @@ Here is an example of how to create a custom size estimator:
 
 Examples
 -----------------
-You can find more examples in the `examples` directory of the chunkipy repository.
+You can find more examples in the ``examples`` directory of the chunkipy repository.
 

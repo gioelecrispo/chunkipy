@@ -3,7 +3,7 @@
 Welcome to Chunkipy's documentation!
 ====================================
 
-`chunkipy` is an extremely useful tool for segmenting long texts into smaller chunks, based on either a character or token count. With customizable chunk sizes and splitting strategies, `chunkipy` provides flexibility and control
+``chunkipy`` is an extremely useful tool for segmenting long texts into smaller chunks, based on either a character or token count. With customizable chunk sizes and splitting strategies, ``chunkipy`` provides flexibility and control
 for various text processing tasks.
 
 Motivation and Features
@@ -13,10 +13,10 @@ Motivation and Features
 
 The library offers some useful features:
 
-- **Size estimation**: unlike other text chunking libraries, `chunkipy` offers the possibility of providing a size estimator function, in order to build the chunks taking into account the  counting function (e.g. tokenizer) that will use those chunks.
-- **Split text into meaningful sentences**: in its default configuration, `chunkipy`, in creating the chunks, avoids cutting sentences, and always tries to have a complete and syntactically correct sentence. This is achieved through the use of the `stanza` library, which utilizes semantic models to cut text into meaningful sentences.
-- **Smart Overlapping**: `chunkipy` offers the possibility to define an `overlap_percentage` and create overlapping chunks to preserve the context along chunks. 
-- **Flexibility in choosing split strategies**: Additionally, `chunkipy` offers complete flexibility in choosing how to split, allowing users to define their own text splitting function or choose from a list of pre-defined text spliters.
+- **Size estimation**: unlike other text chunking libraries, ``chunkipy`` offers the possibility of providing a size estimator function, in order to build the chunks taking into account the  counting function (e.g. tokenizer) that will use those chunks.
+- **Split text into meaningful sentences**: as an optional configuration, ``chunkipy``, in creating the chunks, avoids cutting sentences, and always tries to have a complete and syntactically correct sentence. This is achieved through the use of the sentence segmenter libraries, that utilize semantic models to cut text into meaningful sentences.
+- **Smart Overlapping**: ``chunkipy`` offers the possibility to define an ``overlap_percentage`` and create overlapping chunks to preserve the context along chunks. 
+- **Flexibility for text splitters**: Additionally, ``chunkipy`` offers complete flexibility in choosing how to split, allowing users to define their own text splitting function or choose from a list of pre-defined text spliters.
 
 
 .. toctree::
