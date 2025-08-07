@@ -39,6 +39,9 @@ jobs:
           python -m pip install --upgrade pip
           pip install poetry
           poetry install --only docs
+          
+      - name: Ensure generated directory exists
+        run: mkdir -p docs/source/generated
 
       - name: Build Sphinx HTML
         run: |
@@ -64,5 +67,6 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
 
 
