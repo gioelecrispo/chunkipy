@@ -8,7 +8,7 @@ readme = "README.md"
 repository = "https://github.com/gioelecrispo/chunkipy"
 keywords = ["text", "chunking", "NLP", "tokenization"]
 classifiers = [
-    "Development Status: 5 Production/Stable",
+    "Development Status: 5 - Production/Stable",
     "Intended Audience: Developers",
     "License:: OSI Approved :: MIT License",
     "Programming Language :: Python",
@@ -16,8 +16,8 @@ classifiers = [
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
-    "Programming Language: Implementation:: PyPy",
-    "Topic:: Software Development:: Libraries:: Python Modules",
+    "Programming Language :: Implementation :: PyPy",
+    "Topic :: Software Development :: Libraries :: Python Modules",
 ]
 
 [tool.poetry.dependencies]
