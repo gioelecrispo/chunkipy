@@ -46,12 +46,18 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
-        
+
       - name: Download dist artifacts
         uses: actions/download-artifact@v4
         with:
           name: dist-files
           path: dist/
+      
+      - name: Show current directory and files
+        run: |
+          pwd
+          ls -l
+          ls -l dist
 
       - name: Install Poetry
         run: pip install poetry
