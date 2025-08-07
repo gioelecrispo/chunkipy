@@ -23,9 +23,9 @@ The library offers some useful features:
 - **Flexibility for text splitters**: Additionally, `chunkipy` offers complete flexibility in choosing how to split, allowing users to define their own text splitting function or choose from a list of pre-defined text spliters.
 
 ## Documentation
-For **Installation**, **Usage**, and **API documentation**, please refer to the [documentation](https://chunkipy.gioelecrispo.github.io).
+For **Installation**, **Usage**, and **API documentation**, please refer to the [documentation](https://gioelecrispo.github.io/chunkipy).
 
-You can also check the [examples](https://chunkipy.gioelecrispo.github.io/examples) directory for more usage scenarios.
+You can also check the [examples](https://github.com/gioelecrispo/chunkipy/tree/main/examples) directory for more usage scenarios.
 
 
 ## Contributing
