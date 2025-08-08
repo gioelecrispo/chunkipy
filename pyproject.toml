@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "chunkipy"
-version = "1.0.0.post1"
+version = "1.0.1"
 description = "Chunkipy is an easy-to-use library for chunking text based on the size estimator function you provide."
 authors= ["Gioele Crispo <crispogioele@gmail.com>"]
 license = "MIT"
