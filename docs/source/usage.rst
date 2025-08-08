@@ -104,6 +104,7 @@ Here is an example of how to use the ``WordTextSplitter``:
         print(f"Chunk {i + 1}: {chunk}")
 
 
+
 Prebuilt Sentence Text Splitters
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -112,6 +113,7 @@ For example, you can use the Stanza or SpaCy splitters to handle more complex te
 Remember to install the optional dependencies, i.e. ``pip install chunkipy[stanza-splitter]`` or ``pip install chunkipy[spacy-splitter]``, if you want to use these features.
 
 .. code-block:: python
+
     from chunkipy import TextChunker
     from chunkipy.text_splitters.semantic.sentences import StanzaSentenceTextSplitter
     
@@ -158,6 +160,7 @@ Here is an example of how to create a custom text splitter:
     for i, chunk in enumerate(chunks):
         print(f"Chunk {i + 1}: {chunk}")
 
+
 This example demonstrates how to create a custom text splitter that splits the text based on a specific delimiter (``->`` in this case). You can modify the `split` method to implement any custom logic you need for splitting the text.
 
 
@@ -189,7 +192,7 @@ Here is an example of how to use the ``WordSizeEstimator``:
 
     for i, chunk in enumerate(chunks):
         print(f"Chunk {i + 1}: {chunk}")
-        
+
 
 Custom Size Estimators
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

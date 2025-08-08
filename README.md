@@ -1,6 +1,6 @@
 # Chunkipy
 
-![Python 3.8, 3.9, 3.10, 3.11, 3.12, 3.13](https://img.shields.io/badge/python-3.8%2C%203.9%2C%203.10%2C%203.11%2C%203.12%2C%203.13-blue.svg)
+![Python 3.10, 3.11, 3.12, 3.13](https://img.shields.io/badge/python-3.8%2C%203.9%2C%203.10%2C%203.11%2C%203.12%2C%203.13-blue.svg)
 [![PyPI version](https://badge.fury.io/py/chunkipy.svg)](https://badge.fury.io/py/chunkipy)
 [![codecov](https://codecov.io/gh/gioelecrispo/chunkipy/graph/badge.svg?token=2A7KQ87Q62)](https://codecov.io/gh/gioelecrispo/chunkipy)
 

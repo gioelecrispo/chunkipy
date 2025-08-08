@@ -3,6 +3,20 @@
 Welcome to Chunkipy's documentation!
 ====================================
 
+**GitHub Repository**: https://github.com/gioelecrispo/chunkipy
+
+.. image:: https://img.shields.io/badge/python-3.10%2C%203.11%2C%203.12%2C%203.13-blue.svg
+   :alt: Python 3.10, 3.11, 3.12, 3.13
+   :target: #
+
+.. image:: https://badge.fury.io/py/chunkipy.svg
+   :alt: PyPI version
+   :target: https://badge.fury.io/py/chunkipy
+
+.. image:: https://codecov.io/gh/gioelecrispo/chunkipy/graph/badge.svg?token=2A7KQ87Q62
+   :alt: Codecov
+   :target: https://codecov.io/gh/gioelecrispo/chunkipy
+
 ``chunkipy`` is an extremely useful tool for segmenting long texts into smaller chunks, based on either a character or token count. With customizable chunk sizes and splitting strategies, ``chunkipy`` provides flexibility and control
 for various text processing tasks.
 
