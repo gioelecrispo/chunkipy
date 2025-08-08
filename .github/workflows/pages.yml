@@ -29,6 +29,10 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Fetch all tags and branches  # Required for sphinx-multiversion to work correctly
+        run: |
+          git fetch --tags --force --prune --unshallow 
+
       - name: Set up Python
         uses: actions/setup-python@v5
         with:

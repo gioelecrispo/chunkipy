@@ -70,11 +70,12 @@ intersphinx_mapping = {
 }
 
 #-- Multiversion Settings
+tag_pattern = r"v\d+\.\d+\.\d+(\.\w+)?"  # Match tags like v1.0.0, v2.1.3, v1.0.0.post1, v1.2.3.alpha, etc.   
 smv_tag_whitelist = (
-    r"^v\d+\.\d+\.\d+" # Include only tags like v1.0.0, v2.1.3
+    rf"^{tag_pattern}$"  # Include tags as specified in tag_pattern
 )
 smv_branch_whitelist = r"^main$" # Include only the main branch
 smv_remote_whitelist = r"^origin$" # Use the origin repository by default
-smv_released_pattern = r"^refs/tags/.*$" # r"^refs/tags/v\d+\.\d+.\d+$"
+smv_released_pattern = rf"^refs/tags/{tag_pattern}$" # Include tags as specified in tag_pattern
 smv_outputdir_format = "{ref.name}"
 
