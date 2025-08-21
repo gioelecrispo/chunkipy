@@ -6,7 +6,11 @@ chunkipy error: missing {package_name}.
 
 This feature requires additional dependencies:
 
-    $ pip install chunkipy [{extra}]
+    $ pip install chunkipy[{extra}] 
+    
+or 
+
+    $ poetry add chunkipy[{extra}]
 
 """
 

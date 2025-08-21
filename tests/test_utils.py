@@ -11,7 +11,7 @@ class TestUtils(unittest.TestCase):
         package_name = "bar"
         result = utils.format_instructions(extra=extra, package_name=package_name)
         assert "missing bar" in result
-        assert "pip install chunkipy [foo]" in result
+        assert "pip install chunkipy[foo]" in result
 
     def test_import_dependencies_module_only(self):
         # Should import a standard library module successfully

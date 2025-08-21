@@ -30,7 +30,7 @@ if __name__ == "__main__":
     # Num of tokens (using BertSizeEstimator): 603
     
     # set the tokens flag to False for chunking by chars
-    text_chunker = TextChunker(512, tokens=True, size_estimator=bert_size_estimator)
+    text_chunker = TextChunker(512, size_estimator=bert_size_estimator)
     chunks = text_chunker.chunk(text)
     
     for i, chunk in enumerate(chunks):

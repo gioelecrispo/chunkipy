@@ -39,7 +39,7 @@ class SpacySentenceTextSplitter(BaseSemanticTextSplitter):
 
     def _load_model(self, lang: str):
         spacy = import_dependencies(
-            extra="spacy-sentence", 
+            extra="spacy", 
             package_name="spacy"
         )
 
@@ -58,7 +58,7 @@ class SpacySentenceTextSplitter(BaseSemanticTextSplitter):
 
     def _split(self, text: str) -> List[str]:
         langdetect = import_dependencies(
-            extra="spacy-sentence", 
+            extra="langdetect", 
             package_name="langdetect"
         )
         lang = langdetect.detect(text)

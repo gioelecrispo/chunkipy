@@ -26,7 +26,6 @@ if __name__ == "__main__":
     text_chunker = TextChunker(
         chunk_size=200,
         overlap_ratio=0.25,
-        tokens=True,
         size_estimator=openai_size_estimator,
         text_splitters=[spacy_text_splitter]
     )

@@ -8,7 +8,6 @@ if __name__ == "__main__":
     text_chunker = TextChunker(
         chunk_size=200,
         overlap_ratio=0.25,
-        tokens=True,
         text_splitters=[word_text_splitter]
     )
 

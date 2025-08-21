@@ -13,7 +13,7 @@ if __name__ == "__main__":
     half_length_size_estimator = HalfLengthSizeEstimator()
 
     # Use the custom size estimator in a TextChunker
-    text_chunker = TextChunker(chunk_size=100, tokens=True, size_estimator=half_length_size_estimator)
+    text_chunker = TextChunker(chunk_size=100, size_estimator=half_length_size_estimator)
     text = "This is a sample text that will be chunked using a custom size estimator."
     chunks = text_chunker.chunk(text)
 

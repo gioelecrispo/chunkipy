@@ -19,7 +19,7 @@ Here is an example of how to create a ``TextChunker`` instance with character co
 
     from chunkipy import TextChunker
 
-    text_chunker = TextChunker(100, tokens=False)
+    text_chunker = TextChunker(100)
     text = "This is a sample text that will be chunked into smaller pieces."
     chunks = text_chunker.chunk(text)
     print(chunks)
@@ -30,7 +30,7 @@ And here is an example of how to create a ``TextChunker`` instance with token co
 
     from chunkipy import TextChunker
 
-    text_chunker = TextChunker(100, tokens=True)
+    text_chunker = TextChunker(100)
     text = "This is a sample text that will be chunked into smaller pieces."
     chunks = text_chunker.chunk(text)
     print(chunks)
@@ -61,7 +61,7 @@ Here is an example of how to create overlapping chunks:
             "for proper overlap. "
 
         # Generate chunks with overlapping
-        text_chunker = TextChunker(50, tokens=True, overlap_ratio=0.3)  # using WordSizeEstimator by default
+        text_chunker = TextChunker(50, overlap_ratio=0.3)  # using WordSizeEstimator by default
         chunks = text_chunker.chunk(text)
 
         # Print the resulting chunks
@@ -93,7 +93,6 @@ Here is an example of how to use the ``WordTextSplitter``:
     text_chunker = TextChunker(
         chunk_size=200,
         overlap_ratio=0.25,
-        tokens=True,
         text_splitters=[word_text_splitter]
     )
 
@@ -122,7 +121,6 @@ Remember to install the optional dependencies, i.e. ``pip install chunkipy[stanz
     text_chunker = TextChunker(
         chunk_size=200,
         overlap_ratio=0.25,
-        tokens=True,
         text_splitters=[stanza_text_splitter]
     )
 
@@ -148,12 +146,12 @@ Here is an example of how to create a custom text splitter:
     text = "This is a small text -> with custom split strategy."
 
     class ArrowTextSplitter(BaseTextSplitter):
-        def split(self, text):
+        def _split(self, text):
             return [t for t in text.split("->") if t != '' and t != ' ']
 
     # Create a TextChunker object with custom text splitter (using WordSizeEstimator by default)
     arrow_text_splitter = ArrowTextSplitter()
-    text_chunker = TextChunker(chunk_size=8, tokens=True, text_splitters=[arrow_text_splitter])
+    text_chunker = TextChunker(chunk_size=8, text_splitters=[arrow_text_splitter])
     chunks = text_chunker.chunk(text)
 
     # Print the resulting chunks
@@ -183,7 +181,6 @@ Here is an example of how to use the ``WordSizeEstimator``:
     text_chunker = TextChunker(
         chunk_size=200,
         overlap_ratio=0.25,
-        tokens=True,
         size_estimator=word_size_estimator
     )
 

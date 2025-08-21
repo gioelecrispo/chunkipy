@@ -1,28 +1,85 @@
 from collections import deque
 from dataclasses import dataclass, field
-from typing import List
+from itertools import chain
+from typing import Deque, List
 
 @dataclass
 class TextPart:
     """Represents a fragment or segment of a complete text, along with its character size.
 
+    :param size: The size of the text based on the SizeEstimator used.
     :param text: The text of the segment.
-    :param size: The size of the text in characters.
     """
-    text: str
     size: int
+    text: str
 
 
-@dataclass  
+
+class TextPartsMixin:
+    """A base class with utilities for handling collections of TextPart."""
+
+    @property
+    def size(self) -> int:
+        """Calculates the total size of all TextPart objects in the collection.
+        
+        Returns:
+            int: The total size of all TextPart objects.
+        """
+        return sum(text_part.size for text_part in self)
+
+    @property
+    def text(self) -> str:
+        """Concatenates and returns the full text of all TextParts in the collection.
+
+        Returns:
+            str: A single string containing the concatenated text of all TextParts.
+        """
+        return ''.join(text_part.text for text_part in self)
+
+    def __repr__(self) -> str:
+        return f"{self.__class__.__name__}(size={self.size}, elements={list(self)}"
+
+
+
+
+
+class TextParts (TextPartsMixin, List[TextPart]):
+    """A list-like collection of TextParts.
+    Inherits from list to act as a standard list, and from TextPartsMixin to provide additional methods for aggregated operations (e.g. size, text).
+    """
+    pass
+
+
+class Overlap (TextPartsMixin, Deque [TextPart]):
+    """A deque-like collection of TextParts with utility methods for aggregation.
+    Inherits from deque to act as a standard deque, and from TextParts to provide additional methods for aggregated operations (e.g. size, text).
+    """
+    pass
+
+
+
+@dataclass
 class Chunk:
     """Represents a single chunk of text, which consists of multiple text parts.
-    
+
     Computed Properties:
     :param text: Represents the full text of the chunk by joining all 'text' values from its 'text parts.
-    :param text:parts: A list of TextPart objects that make up the chunk.
+    :param overlap: A list of TextPart objects that make up the chunk.
+    :param content: A list of TextPart objects that make up the chunk.
     """
-    text_parts: List[TextPart] = field(default_factory=list)  # Ensure proper initialization
 
+    overlap: Overlap = field(default_factory=Overlap) # Ensure proper initialization
+    content: TextParts = field(default_factory=TextParts) # Ensure proper initialization
+
+
+    @property
+    def size(self) -> int:
+        """Calculates and returns the total size of all TextPart objects within text_parts.
+        
+        Returns:
+            int: The total size of all TextPart objects.
+        """
+        return self.text_parts.size
 
     @property
     def text(self) -> str:
@@ -31,25 +88,22 @@ class Chunk:
         Returns:
             str: The full text of the chunk, concatenated from all text parts.
         """
-        return ''.join(part.text for part in self.text_parts).strip()
-
-
+        return self.text_parts.text
+    
     @property
-    def size(self) -> int:
-        """Calculates and returns the total size of all TextPart objects within text_parts.
+    def text_parts(self) -> TextParts:
+        """Returns the full concatenated text of the chunk by joining all 'text' values from the TextPart objects.
 
         Returns:
-        int: The total size of all TextPart objects.
+            str: The full text of the chunk, concatenated from all text parts.
         """
-        return sum(part.size for part in self.text_parts) if self.text_parts else 0
-    
+        return TextParts (chain(self.overlap, self.content))
 
     def __repr__(self) -> str:
-        return (f"Chunk(text='{self.text}', size={self.size}, "
-                f"text_parts={self.text_parts})")
+        return f"Chunk(size={self.size}, text='{self.text}, overlap={self.overlap}, content={self.content}"
+        
 
-
-class Chunks(list):
+class Chunks(List[Chunk]):
     """A list-like collection of chunks with utility methods for aggregation.
 
     Inherits from 'list' to act as a standard list, while providing additional methods for aggregated operations.
@@ -73,7 +127,7 @@ class Chunks(list):
         return [chunk.text for chunk in self]
 
 
-class Overlapping(deque):
+class Overlap(Deque[TextPart]):
     """A deque-like collection of TextParts with utility methods for aggregation.
     Inherits from deque to act as a standard deque, while providing additional
     methods for aggregated operations (e.g. size).
@@ -89,4 +143,4 @@ class Overlapping(deque):
         return sum(part.size for part in self) if self else 0
 
     def __repr__(self) -> str:
-        return f"Overlapping(size={self.size}, elements={list(self)})"
+        return f"Overlap(size={self.size}, elements={list(self)})"

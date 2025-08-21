@@ -1,6 +1,6 @@
 import logging
 from chunkipy.text_chunker import TextChunker
-from chunkipy.text_chunker.data_models import TextPart, Chunk, Chunks, Overlapping
+from chunkipy.text_chunker.data_models import TextPart, Chunk, Chunks, Overlap
 
 
 # Configure logging
@@ -11,6 +11,6 @@ __all__ = ["TextChunker",
         "TextPart",
         "Chunk",
         "Chunks",
-        "Overlapping"]
+        "Overlap"]
 
 

@@ -12,7 +12,7 @@ if __name__ == "__main__":
         "for proper overlap. "
 
     # Generate chunks with overlapping
-    text_chunker = TextChunker(50, tokens=True, overlap_ratio=0.3)  # using WordSizeEstimator by default
+    text_chunker = TextChunker(50, overlap_ratio=0.3)  # using WordSizeEstimator by default
     chunks = text_chunker.chunk(text)
 
     # Print the resulting chunks

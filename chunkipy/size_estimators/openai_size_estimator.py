@@ -8,7 +8,7 @@ class OpenAISizeEstimator(BaseSizeEstimator):
     """
     def __init__(self, encoding: str = "cl100k_base"):
         super().__init__()
-        tiktoken = import_dependencies(extra="openai-estimator", package_name="tiktoken")
+        tiktoken = import_dependencies(extra="tiktoken", package_name="tiktoken")
         self.tokenizer = tiktoken.get_encoding(encoding)
 
     def estimate_size(self, text: str) -> int:

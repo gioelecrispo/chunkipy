@@ -79,7 +79,7 @@ class StanzaSentenceTextSplitter(BaseSemanticTextSplitter):
 
     def _split(self, text: str) -> List[str]:
         langdetect = import_dependencies(
-            extra="spacy-sentence", 
+            extra="langdetect", 
             package_name="langdetect"
         )
         _, DownloadMethod, Pipeline = import_dependencies(
