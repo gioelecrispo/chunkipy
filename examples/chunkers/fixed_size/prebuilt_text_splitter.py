@@ -1,14 +1,10 @@
-from chunkipy import TextChunker
-from chunkipy.text_splitters import WordTextSplitter
+from chunkipy import FixedSizeTextChunker
 
 
 if __name__ == "__main__":
-    word_text_splitter = WordTextSplitter()
-
-    text_chunker = TextChunker(
+    text_chunker = FixedSizeTextChunker(
         chunk_size=200,
-        overlap_ratio=0.25,
-        text_splitters=[word_text_splitter]
+        overlap_ratio=0.25
     )
 
     text = "This is a sample text that will be split into chunks based on word boundaries."

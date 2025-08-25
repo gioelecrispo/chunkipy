@@ -1,3 +1,4 @@
+from typing import Generator
 from chunkipy.size_estimators.base_size_estimator import BaseSizeEstimator
 from chunkipy.utils import import_dependencies
 
@@ -22,3 +23,16 @@ class OpenAISizeEstimator(BaseSizeEstimator):
             int: The estimated size of the text in tokens.
         """
         return len(self.tokenizer.encode(text))
+    
+    def segment(self, text: str) -> Generator[str, None, None]:
+        """
+        Generate token segments from the given text using OpenAI's tokenization.
+        Args:
+            text (str): The text to segment.
+
+        Yields:
+            str: A single token as segmented by the tokenizer.
+        """
+        encoded_tokens = self.tokenizer.encode(text)
+        for token in (encoded_tokens):
+            yield self.tokenizer.decode([token])

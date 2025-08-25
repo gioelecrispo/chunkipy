@@ -1,3 +1,4 @@
+from typing import Generator
 from chunkipy.size_estimators.base_size_estimator import BaseSizeEstimator
 
 
@@ -17,3 +18,16 @@ class CharSizeEstimator(BaseSizeEstimator):
             int: The estimated size of the text in characters.
         """
         return len(text)
+    
+    def segment(self, text: str) -> Generator[str, None, None]:
+        """
+        Segment thegiven text into chars.
+        
+        Args:
+            text (str): The text to analyze.
+
+        Yields:
+            str: A segment, representing a char of the text.
+        """
+        for char in text:
+            yield char

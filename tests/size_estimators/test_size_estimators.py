@@ -35,6 +35,3 @@ class TestBaseSizeEstimator(unittest.TestCase):
 
         with self.assertRaises(NotImplementedError):
             DummySizeEstimator().estimate_size("test")
-
-if __name__ == "__main__":
-    unittest.main()

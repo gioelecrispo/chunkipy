@@ -1,4 +1,4 @@
-from chunkipy import TextChunker
+from chunkipy import RecursiveTextChunker
 from chunkipy.text_splitters.base_text_splitter import BaseTextSplitter
 
 
@@ -11,7 +11,7 @@ if __name__ == "__main__":
 
     # Create a TextChunker object with custom text splitter (using WordSizeEstimator by default)
     arrow_text_splitter = ArrowTextSplitter()
-    text_chunker = TextChunker(chunk_size=8, text_splitters=[arrow_text_splitter])
+    text_chunker = RecursiveTextChunker(chunk_size=8, text_splitters=[arrow_text_splitter])
     chunks = text_chunker.chunk(text)
 
     # Print the resulting chunks
