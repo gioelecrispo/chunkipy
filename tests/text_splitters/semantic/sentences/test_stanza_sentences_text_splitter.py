@@ -1,6 +1,6 @@
 import unittest
 from unittest.mock import patch, MagicMock
-from chunkipy.text_splitters.semantic.sentences.stanza_sentences_text_splitter import StanzaSentenceTextSplitter
+from chunkipy.text_splitters.semantic.sentences.stanza_sentence_text_splitter import StanzaSentenceTextSplitter
 
             
 class TestStanzaSentenceTextSplitter(unittest.TestCase):

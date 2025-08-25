@@ -31,7 +31,8 @@ exclude_patterns = []
 #-- HTML Theme Settings --
 html_theme = "sphinx_rtd_theme"  # Use Read the Docs Theme
 html_theme_options = {
-    'logo_only': False,
+    'logo_only': True,
+    'canonical_url': 'https://gioelecrispo.github.io/chunkipy',
     'prev_next_buttons_location': 'bottom',
     'style_external_links': False,
     'vcs_pageview_mode': '',
@@ -39,7 +40,7 @@ html_theme_options = {
     'version_selector': True,
     'language_selector': True,
     # Toc options
-    'collapse_navigation': True,
+    'collapse_navigation': False,
     'sticky_navigation': True,
     'navigation_depth': 4,
     'includehidden': True,
@@ -50,6 +51,7 @@ html_static_path = ["_static"]
 html_css_files = [
     "css/style.css",
 ]
+html_logo = "img/logo-landscape.png"
 
 # -- Autodoc Settings --
 autodoc_typehints = "description"  # Render type hints in docstrings

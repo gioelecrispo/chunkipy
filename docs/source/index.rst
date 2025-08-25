@@ -34,13 +34,17 @@ The library offers some useful features:
 
 
 .. toctree::
-   :maxdepth: 2
-   :caption: Contents
+   :maxdepth: 3
+   :caption: Getting Started
 
    installation
    usage
    api
    contributing
+
+   Text Chunkers <text_chunkers/index>
+   Text Splitters <text_splitters/index>
+   Size Estimators <size_estimators/index>
 
 
 Indices and tables

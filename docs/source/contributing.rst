@@ -13,6 +13,7 @@ To start developing chunkipy, it is recommended to:
 3. Install the development dependencies via one of these commands:
 
 .. code-block:: bash
+
     poetry install  # no extra dependencies
     poetry install --extra spacy-splitter
     poetry install --extra openai-splitter,openai-estimator  # multiple extras dependencies
@@ -30,11 +31,13 @@ Documentation
 This is handled via Github Action, but you can reproduce it by installing the needed dependencies:
 
 .. code-block:: bash
+
     poetry install --only docs
 
 and then by running the following command:
 
 .. code-block:: bash
+
     sphinx-multiversion docs/source docs/build/html
 
 
@@ -45,11 +48,13 @@ We use ``pytest`` as main testing framework.
 You can install al the testing dependencies by running: 
 
 .. code-block:: bash
+
     poetry install --with test
 
 Once done, you can run all the unit test (and check the coverage) with this command from the project folder:
 
 .. code-block:: bash
+    
     pytest --cov=chunkipy --cov-report=term
 
 

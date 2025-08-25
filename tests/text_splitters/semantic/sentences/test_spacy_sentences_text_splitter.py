@@ -3,7 +3,7 @@ import pytest
 from unittest.mock import patch, MagicMock
 from chunkipy.utils import MissingDependencyError
 
-from chunkipy.text_splitters.semantic.sentences.spacy_sentences_text_splitter import (
+from chunkipy.text_splitters.semantic.sentences.spacy_sentence_text_splitter import (
     SpacySentenceTextSplitter, SPACY_INSTRUCTIONS
 )
 
