@@ -6,3 +6,10 @@ API Reference
     :recursive:
 
     chunkipy
+
+
+.. sidebar:: Indices and tables
+
+   * :ref:`genindex`
+   * :ref:`modindex`
+   * :ref:`search`

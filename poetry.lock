@@ -2155,6 +2155,25 @@ docs = ["furo (>=2024.8.6)"]
 testing = ["covdefaults (>=2.3)", "coverage (>=7.6.10)", "defusedxml (>=0.7.1)", "diff-cover (>=9.2.1)", "pytest (>=8.3.4)", "pytest-cov (>=6)", "sphobjinv (>=2.3.1.2)", "typing-extensions (>=4.12.2)"]
 
 [[package]]
+name = "sphinx-inline-tabs"
+version = "2023.4.21"
+description = "Add inline tabbed content to your Sphinx documentation."
+optional = false
+python-versions = ">=3.8"
+groups = ["docs"]
+files = [
+    {file = "sphinx_inline_tabs-2023.4.21-py3-none-any.whl", hash = "sha256:06809ac613f7c48ddd6e2fa588413e3fe92cff2397b56e2ccf0b0218f9ef6a78"},
+    {file = "sphinx_inline_tabs-2023.4.21.tar.gz", hash = "sha256:5df2f13f602c158f3f5f6c509e008aeada199a8c76d97ba3aa2822206683bebc"},
+]
+
+[package.dependencies]
+sphinx = ">=3"
+
+[package.extras]
+doc = ["furo", "myst-parser"]
+test = ["pytest", "pytest-cov", "pytest-xdist"]
+
+[[package]]
 name = "sphinx-multiversion"
 version = "0.2.4"
 description = "Add support for multiple versions to sphinx"
@@ -2901,4 +2920,4 @@ tiktoken = ["tiktoken"]
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.10,<3.13"
-content-hash = "6529bbe1c90a4ad1d8fecac3a25aedfc91cfc95507903452f911cf23aa07e764"
+content-hash = "e5193a514403b3dbd8bf3ac935cf0dbdefa957761a5ead85625e47fe1b3b2d77"

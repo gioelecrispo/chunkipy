@@ -23,6 +23,7 @@ extensions = [
     "sphinx_multiversion",  # Enable versioning
     "sphinx.ext.autosummary",  # Auto-generate summary tables for modules/classes
     "sphinx.ext.intersphinx",  # Cross reference library documentation
+    "sphinx_inline_tabs"  # Enable inline tabs .. tab::
 ]
 
 templates_path = ["_templates"]
@@ -52,6 +53,13 @@ html_css_files = [
     "css/style.css",
 ]
 html_logo = "img/logo-landscape.png"
+html_context = {
+    "display_github": True,
+    "github_user": "gioelecrispo",
+    "github_repo": "chunkipy",
+    "github_version": "main/",
+}
+
 
 # -- Autodoc Settings --
 autodoc_typehints = "description"  # Render type hints in docstrings
@@ -66,9 +74,7 @@ autosummary_generate = True  # Enable autosummary generation
 
 #-- Cross reference Documentation Settings
 intersphinx_mapping = {
-    "python": ("https://docs.python.org/3", None),
-    "stanza": ("https://stanfordnlp.github.io/stanza", None),
-    "spacy": ("https://spacy.io/", None),
+    "python": ("https://docs.python.org/3", None)
 }
 
 #-- Multiversion Settings

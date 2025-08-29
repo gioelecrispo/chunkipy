@@ -1,4 +1,4 @@
-Usage
+Quickstart
 ==============
 In this section, we will explore how to use Chunkipy effectively, including its basic and advanced features.
 To use Chunkipy, you first need to install it. You can do this using pip, as described in the installation guide. 

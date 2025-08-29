@@ -1,5 +1,6 @@
 FixedSizeTextChunker
 =======================
 
-.. autoclass:: chunkipy.text_chunkers.FixedSizeTextChunker
+.. autoclass:: chunkipy.text_chunker.FixedSizeTextChunker
    :members:
+   :no-index:

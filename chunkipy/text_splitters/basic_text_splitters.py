@@ -22,7 +22,7 @@ class SeparatorTextSplitter(BaseTextSplitter):
         return text_pieces
 
 
-class SemicolonTextSplitter (SeparatorTextSplitter):
+class SemicolonTextSplitter(SeparatorTextSplitter):
     def __init__(self):
         super().__init__(separator="; ")
 

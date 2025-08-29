@@ -1,6 +1,6 @@
-OpenAISizeEstimator
-===================
+OpenAI Size Estimator
+=======================
 
-.. autoclass:: chunkipy.text_splitters.OpenAISizeEstimator
+.. autoclass:: chunkipy.size_estimators.OpenAISizeEstimator
    :members:
-
+   :no-index:

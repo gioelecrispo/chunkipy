@@ -1,7 +1,7 @@
 Contributing
 ==================
-If you find a bug or have a feature request, please open an issue on [GitHub](https://github.com/gioelecrispo/chunkipy/issues).
-Contributions are welcome! Just fork the repository, create a new branch with your changes, and submit a pull request. Please make sure to write tests for your changes and to follow the [code style](https://www.python.org/dev/peps/pep-0008/).
+If you find a bug or have a feature request, please open an issue on `GitHub <https://github.com/gioelecrispo/chunkipy/issues>`_.
+Contributions are welcome! Just fork the repository, create a new branch with your changes, and submit a pull request. Please make sure to write tests for your changes and to follow the `code style <https://www.python.org/dev/peps/pep-0008/>`_.
 
 
 Development 
@@ -18,8 +18,6 @@ To start developing chunkipy, it is recommended to:
     poetry install --extra spacy-splitter
     poetry install --extra openai-splitter,openai-estimator  # multiple extras dependencies
     poetry install --all-extras  # all the extras dependencies
-
-
 
 Documentation
 ------------------
