@@ -1,5 +1,3 @@
-.. Chunkipy documentation master file
-
 Welcome to Chunkipy's documentation!
 ====================================
 
@@ -17,22 +15,135 @@ Welcome to Chunkipy's documentation!
    :alt: Codecov
    :target: https://codecov.io/gh/gioelecrispo/chunkipy
 
-``chunkipy`` is an extremely useful tool for segmenting long texts into smaller chunks, based on either a character or token count. With customizable chunk sizes and splitting strategies, ``chunkipy`` provides flexibility and control
-for various text processing tasks.
 
 
 
-Motivation and Features
------------------------
+``chunkipy`` is a **modular and extensible text chunking library** for Python — built to help you split large texts into smaller, meaningful segments for NLP, LLMs, and text processing pipelines.  
 
-`chunkipy` was created to address the need within the field of Natural Language Processing (NLP) to chunk text so that it does not exceed the input size of **neural networks** such as BERT, but it could be used for several other use cases.
+It provides both **ready-to-use chunkers** and **plug-and-play components**, enabling developers to use it out of the box or fully customize its behavior according to their own needs.  
 
-The library offers some useful features:
 
-- **Size estimation**: unlike other text chunking libraries, ``chunkipy`` offers the possibility of providing a size estimator function, in order to build the chunks taking into account the  counting function (e.g. tokenizer) that will use those chunks.
-- **Split text into meaningful sentences**: as an optional configuration, ``chunkipy``, in creating the chunks, avoids cutting sentences, and always tries to have a complete and syntactically correct sentence. This is achieved through the use of the sentence segmenter libraries, that utilize semantic models to cut text into meaningful sentences.
-- **Smart Overlapping**: ``chunkipy`` offers the possibility to define an ``overlap_percentage`` and create overlapping chunks to preserve the context along chunks. 
-- **Flexibility for text splitters**: Additionally, ``chunkipy`` offers complete flexibility in choosing how to split, allowing users to define their own text splitting function or choose from a list of pre-defined text spliters.
+Why Chunkipy?
+-------------
+
+Traditional text-splitting libraries often limit flexibility to simple fixed-size splitting or token-based segmentation, ignoring linguistic or semantic structure. `chunkipy` bridges that gap with a **flexible, language-aware architecture** that adapts to your use case.
+
+- ✅ **Lightweight core** — install only what you need  
+- ✅ **Five chunking strategies** (fixed, recursive, document-based, semantic, LLM-based)  
+- ✅ **Configurable overlapping** to preserve context across chunks.
+- ✅ **Plug-and-play defaults** for immediate use without configuration.  
+- ✅ **Optional language detection** for multilingual text processing, used seamlessly by semantic or linguistic splitters.  
+- ✅ **Highly modular design** — every component (chunker, splitter, size estimator, detector) can be replaced or extended.  
+
+
+The result is a library that’s both **pragmatic for production** and **powerful for research**, enabling data scientists and developers to easily find the best chunking strategy for a given use case.
+
+
+Available Chunkers
+-------------------
+
+``chunkipy`` provides several built-in chunking strategies, each designed for different use cases.
+All of them implement a common interface, so you can easily switch between them or even define your own custom splitter.
+
+Also, they are flexible: you can combine them with custom text splitters, size estimators, or language detectors.
+
+
+FixedSizeTextChunker
+^^^^^^^^^^^^^^^^^^^^^^
+
+Splits text into fixed-size chunks based on the number of tokens or characters.
+This is the simplest and most predictable method, suitable when you just need evenly sized chunks for processing.
+
+.. image:: img/gifs/fixed_size.gif
+   :width: 500
+   :alt: Fixed-size chunking
+   :target: text_chunkers/fixed_size.html
+
+RecursiveTextChunker
+^^^^^^^^^^^^^^^^^^^^^^
+
+It uses a hierarchy of rules to split text at logical boundaries (e.g., paragraphs, sentences) while respecting the desired chunk size and overlap.
+
+.. image:: img/gifs/recursive.gif
+   :width: 500
+   :alt: Recursive chunking
+   :target: text_chunkers/recursive.html
+
+DocumentBasedTextChunker
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Splits text based on document structure, such as paragraphs or sections. For example, it can split at double newlines or specific headings, depending on the document's type (markdown, HTML, etc.).
+
+.. image:: img/gifs/document_based.gif
+   :width: 500
+   :alt: Document-based chunking
+   :target: text_chunkers/document.html
+
+SemanticTextChunker
+^^^^^^^^^^^^^^^^^^^^^^
+
+Splits text based on semantic similarity between consecutive sentences or paragraphs.
+This method ensures that each chunk preserves contextual coherence — ideal for embeddings, RAG pipelines, and LLM-driven applications.
+
+.. image:: img/gifs/semantic.gif
+   :width: 500
+   :alt: Semantic chunking
+   :target: text_chunkers/semantic.html
+
+LLMBasedChunker
+^^^^^^^^^^^^^^^^
+
+Uses a large language model (LLM) to intelligently segment text based on its meaning and context.
+This approach is highly flexible and can adapt to various text types and structures, making it suitable for
+complex chunking tasks.
+
+.. image:: img/gifs/llm_based.gif
+   :width: 500
+   :alt: LLM-based chunking
+   :target: text_chunkers/llm_based.html
+
+CustomTextChunker
+^^^^^^^^^^^^^^^^^^^^^^
+
+You can create your own chunker by extending the base ``TextChunker`` class and implementing the ``chunk`` method.
+
+
+
+
+
+
+**Configurable Overlapping**
+   Preserve context across chunks with configurable overlap ratios.  
+   Overlapping is supported for all chunkers except the LLM-based one:
+   ``FixedSizeChunker``, ``RecursiveChunker``, ``DocumentChunker`` and ``SemanticChunker``.
+
+**Pre-built and Customizable Splitters**
+   Ready-to-use text splitters (e.g. ``SpacySplitter``) are available,  
+   but you can easily implement your own custom splitter by extending base classes.
+
+**Language Detection (Optional)**
+   ``chunkipy`` includes a **plug-and-play language detector** for cases where the splitting logic depends on language (e.g. SpaCy models).  
+   It is completely optional — you can use built-in detectors or implement your own by extending ``BaseLanguageDetector``.
+
+**Highly Modular Architecture**
+   Every component of the pipeline is replaceable and independently configurable:
+   - **Chunkers** define how chunks are formed.  
+   - **Splitters** define how text is divided into linguistic units.  
+   - **Size estimators** define how chunk size is measured (characters, words, tokens).  
+   - **Detectors** identify the language for language-dependent splitters.
+
+This modularity allows users to combine, extend, or replace any part of the system without touching the rest of the library.
+
+
+Quick Summary
+--------------
+
+- 🧩 **5 built-in chunkers** – from fixed-size to semantic and LLM-based.  
+- 🔁 **Overlapping support** – configurable context preservation.  
+- 🧠 **Smart splitters** – pre-built (SpaCy, OpenAI, etc.) and fully customizable.  
+- 🌍 **Optional language detection** – lightweight and extendable.  
+- ⚙️ **Highly modular architecture** – all components are replaceable.  
+- 🚀 **Ready-to-use defaults** – works out of the box, no configuration required.
 
 
 .. toctree::
@@ -53,6 +164,9 @@ The library offers some useful features:
    text_chunkers/overview
    text_chunkers/fixed_size
    text_chunkers/recursive
+   text_chunkers/document
+   text_chunkers/semantic
+   text_chunkers/llm_based
 
 .. toctree::
    :maxdepth: 1
@@ -63,6 +177,14 @@ The library offers some useful features:
    text_splitters/spacy
    text_splitters/stanza
 
+.. toctree::
+   :maxdepth: 1
+   :caption: Language Detection
+   :hidden:
+
+   language_detectors/overview
+   language_detectors/langdetect 
+   language_detectors/fasttext
 
 .. toctree::
    :maxdepth: 1
@@ -73,5 +195,3 @@ The library offers some useful features:
    size_estimators/char
    size_estimators/word
    size_estimators/openai
-
-

@@ -1,87 +1,160 @@
 # Chunkipy
 
-![Python 3.10, 3.11, 3.12, 3.13](https://img.shields.io/badge/python-3.8%2C%203.9%2C%203.10%2C%203.11%2C%203.12%2C%203.13-blue.svg)
+[![Python 3.10–3.13](https://img.shields.io/badge/python-3.10%20|%203.11%20|%203.12%20|%203.13-blue.svg)](#)
 [![PyPI version](https://badge.fury.io/py/chunkipy.svg)](https://badge.fury.io/py/chunkipy)
 [![codecov](https://codecov.io/gh/gioelecrispo/chunkipy/graph/badge.svg?token=2A7KQ87Q62)](https://codecov.io/gh/gioelecrispo/chunkipy)
+[![Docs](https://img.shields.io/badge/docs-online-success)](https://gioelecrispo.github.io/chunkipy/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-`chunkipy` is an extremely useful tool for segmenting long texts into smaller chunks, based on either a character or token count. With customizable chunk sizes and splitting strategies, `chunkipy` provides flexibility and control
-for various text processing tasks.
+---
 
-## Motivation and Features
+`chunkipy` is a **modular and extensible text chunking library** for Python — built to help you split large texts into smaller, meaningful segments for NLP, LLMs, and text processing pipelines.  
 
-`chunkipy` was created to address the need within the field of Natural Language Processing (NLP) to chunk text so that it does not exceed the input size of **neural networks** such as BERT, but it could be used for several other use cases.
+It provides both **ready-to-use chunkers** and **plug-and-play components**, enabling developers to use it out of the box or fully customize its behavior according to their own needs.  
 
-The library offers some useful features:
+---
 
-- **Size estimation**: unlike other text chunking libraries, `chunkipy` offers the possibility of providing a size estimator function, in order to build the chunks taking into account the  counting function (e.g. tokenizer) that will use those chunks.
-- **Split text into meaningful sentences**: as an optional configuration, `chunkipy`,
-  in creating the chunks, avoids cutting sentences, and always tries to have a complete and syntactically correct sentence.
-  This is achieved through the use of the sentence segmenter libraries, that utilize semantic models to cut text
-  into meaningful sentences.
-- **Smart Overlapping**: `chunkipy` offers the possibility to define an `overlap_percentage` and create overlapping chunks to
-  preserve the context along chunks.
-- **Flexibility for text splitters**: Additionally, `chunkipy` offers complete flexibility in choosing how to split, allowing users to define their own text splitting function or choose from a list of pre-defined text spliters.
+## Why Chunkipy?
+
+Traditional text-splitting libraries often limit flexibility to simple fixed-size splitting or token-based segmentation, ignoring linguistic or semantic structure.  
+`chunkipy` bridges that gap with a **flexible, language-aware architecture** that adapts to your use case.
+
+- ✅ **Lightweight core** — install only what you need  
+- ✅ **Five chunking strategies** (fixed, recursive, document-based, semantic, LLM-based)  
+- ✅ **Configurable overlapping** to preserve context across chunks.
+- ✅ **Plug-and-play defaults** for immediate use without configuration.  
+- ✅ **Optional language detection** for multilingual text processing, used seamlessly by semantic or linguistic splitters.  
+- ✅ **Highly modular design** — every component (chunker, splitter, size estimator, detector) can be replaced or extended.  
+
+The result is a library that’s both **pragmatic for production** and **powerful for research**, enabling data scientists and developers to easily find the best chunking strategy for a given use case.
+
+---
+
+## Quick Example
+
+```python
+from chunkipy import FixedSizeChunker
+
+text = "Chunkipy makes text processing modular, flexible, and powerful!"
+
+chunker = FixedSizeChunker(chunk_size=20, overlap_percentage=0.2)
+chunks = chunker.chunk(text)
+
+for i, c in enumerate(chunks):
+    print(f"Chunk {i+1}: {c}")
+```
+
+**Output:**
+
+```bash
+Chunk 1: Chunkipy makes text
+Chunk 2: text processing modular,
+Chunk 3: modular, flexible, and
+Chunk 4: and powerful!
+```
+
+> ✨ Works out-of-the-box — no setup required.
+> For semantic or language-specific chunking, install the appropriate splitter extras.
+
+## Available Chunkers
+
+`chunkipy` provides several built-in chunking strategies, each designed for different use cases.
+All of them implement a common interface, so you can easily switch between them or even define your own custom splitter.
+
+Also, they are flexible: you can combine them with custom text splitters, size estimators, or language detectors.
+
+### FixedSizeTextChunker
+
+Splits text into fixed-size chunks based on the number of tokens or characters.
+This is the simplest and most predictable method, suitable when you just need evenly sized chunks for processing.
+
+![fixed_size](docs/source/img/gifs/fixed_size.gif)
+
+### RecursiveTextChunker
+
+It uses a hierarchy of rules to split text at logical boundaries (e.g., paragraphs, sentences) while respecting the desired chunk size and overlap.
+
+![recursive](docs/source/img/gifs/recursive.gif)
+
+### DocumentBasedTextChunker
+
+Splits text based on document structure, such as paragraphs or sections. For example, it can split at double newlines or specific headings, depending on the document's type (markdown, HTML, etc.).
+
+![document_based](docs/source/img/gifs/document_based.gif)
+
+### SemanticTextChunker
+
+Splits text based on semantic similarity between consecutive sentences or paragraphs.
+This method ensures that each chunk preserves contextual coherence — ideal for embeddings, RAG pipelines, and LLM-driven applications.
+
+![semantic](docs/source/img/gifs/semantic.gif)
+
+### LLMBasedChunker
+
+Uses a large language model (LLM) to intelligently segment text based on its meaning and context.
+This approach is highly flexible and can adapt to various text types and structures, making it suitable for
+complex chunking tasks.
+
+![llm_based](docs/source/img/gifs/llm_based.gif)
+
+### CustomTextChunker
+
+You can create your own chunker by extending the base `TextChunker` class and implementing the `chunk` method.
+
+| Type                      | Description                                                     | Overlap | Language-Aware               |
+| ------------------------- | --------------------------------------------------------------- | ------- | ---------------------------- |
+| **FixedSizeTextChunker**      | Split by fixed size (characters or tokens)                      | ✅       | ❌                           |
+| **RecursiveTextChunker**      | Recursively split text using multiple rules                     | ✅       | ✅ (Depends on the splitter) |
+| **DocumentBasedTextChunker**  | Split by document structure (paragraphs, sections)              | ✅       | ❌                           |
+| **SemanticTextChunker**       | Split by meaning using linguistic models (spaCy, stanza, etc.)  | ✅       | ✅                           |
+| **LLMBasedTextChunker**       | Use an LLM API (OpenAI, Gemini, etc.) for semantic segmentation | ❌       | ✅                           |
+| **CustomTextChunker**         | Build your own chunker by extending the base class              | ✅/❌    | ✅/❌                         |
+
+## Installation
+
+Install only the core library:
+
+```bash
+pip install chunkipy
+```
+
+Or include optional components:
+
+```bash
+# For semantic splitting via spaCy or Stanza
+pip install "chunkipy[spacy,stanza]"
+
+# For language detection
+pip install "chunkipy[langdetect]"
+
+# Everything included
+pip install "chunkipy[all]"
+```
+
+Supports `pip`, `poetry`, and `uv` package managers.
 
 ## Documentation
 
-For **Installation**, **Usage**, and **API documentation**, please refer to the [documentation](https://gioelecrispo.github.io/chunkipy).
+Full installation guide, API reference, and usage examples are available here:
+👉 [https://gioelecrispo.github.io/chunkipy](https://gioelecrispo.github.io/chunkipy)
 
-You can also check the [examples](https://github.com/gioelecrispo/chunkipy/tree/main/examples) directory for more usage scenarios.
+You can also explore real examples in the [examples directory](https://github.com/gioelecrispo/chunkipy/tree/main/examples).
 
 ## Contributing
 
-If you find a bug or have a feature request, please open an issue on [GitHub](https://github.com/gioelecrispo/chunkipy/issues).
-Contributions are welcome! Just fork the repository, create a new branch with your changes, and submit a pull request. Please make sure to write tests for your changes and to follow the [code style](https://www.python.org/dev/peps/pep-0008/).
+Found a bug or have an idea for improvement?
+Open an issue or a pull request on [GitHub](https://github.com/gioelecrispo/chunkipy/issues).
 
-### Development
-
-To start developing chunkipy, it is recommended to:
-
-1. Create a virtual environment (e.g. `python -m venv .venv`) and activate it
-2. Install poetry via `pip install poetry`
-3. Install the development dependencies via one of these commands:
+Development setup (with Poetry):
 
 ```bash
-poetry install  # no extra dependencies
-poetry install --extras tiktoken
-poetry install --extras langdetect,spacy  # multiple extras dependencies
-poetry install --all-extras  # all the extras dependencies
+git clone https://github.com/gioelecrispo/chunkipy.git
+cd chunkipy
+poetry install --all-extras
 ```
 
-### Building documentation
-
-`chunkipy` relies on python docstrings and `sphinx` for its documentation.
-`sphinx-autosummary` is used to automatically generate documentation from code.
-
-`sphinx-multiversion` is used to provide multiversion support, i.e. you can navigation documention for past version too.
-
-This is handled via Github Action, but you can reproduce it by installing the needed dependencies:
-
-```bash
-poetry install --only docs
-```
-
-and then by running the following command:
-
-```bash
-sphinx-multiversion docs/source docs/build/html
-```
-
-### Testing
-
-We use `pytest` as main testing framework.
-You can install al the testing dependencies by running:
-
-```bash
-poetry install --with test
-```
-
-Once done, you can run all the unit test (and check the coverage) with this command from the project folder:
-
-```bash
-pytest --cov=chunkipy --cov-report=term
-```
+See `CONTRIBUTING.md` for full guidelines.
 
 ## License
 
-`chunkipy` is licensed under the [MIT License](https://opensource.org/licenses/MIT).
+`chunkipy` is released under the [MIT License](https://opensource.org/license/MIT).
