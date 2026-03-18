@@ -4,10 +4,10 @@ from chunkipy.utils import import_dependencies
 
 
 class OpenAISizeEstimator(BaseSizeEstimator):
-    """
-    Size estimator that uses OpenAI's tokenization to estimate the size of the text.
-    """
+    """Estimate size using a ``tiktoken`` encoding compatible with OpenAI models."""
+
     def __init__(self, encoding: str = "cl100k_base"):
+        """Initialize the estimator with the encoding name to load via ``tiktoken``."""
         super().__init__()
         tiktoken = import_dependencies(extra="tiktoken", package_name="tiktoken")
         self.tokenizer = tiktoken.get_encoding(encoding)

@@ -7,15 +7,27 @@ The library is lightweight at its core, with optional dependencies for specific 
 The goal is to let you install only what you really need — while still providing an easy way to install everything at once.
 
 .. note::
-   You can install multiple optional dependencies together by separating them with commas, e.g. ``chunkipy[spacy,langdetect]``.
+   You can install optional dependencies as feature groups or individually. 
+   Feature groups (e.g. ``language-detection``, ``nlp``, ``ai``) are recommended for convenience.
 
---------------------------------
-List of optional dependencies
---------------------------------
+-------------------------------
+Optional dependencies overview
+-------------------------------
 
-- ``stanza`` – enables the **StanzaSplitter** for sentence-level splitting using the *Stanza* NLP library.  
-- ``spacy`` – enables the **SpacySplitter** for sentence-level splitting using *spaCy* models.  
-- ``langdetect`` – adds a **language detector** useful for language-dependent splitters.  
+**Feature groups** (recommended for convenience):
+
+- ``language-detection`` – enables both ``LangdetectLanguageDetector`` and ``FastTextLanguageDetector`` (langdetect + fasttext).
+- ``nlp`` – enables semantic sentence splitters with Stanza and spaCy backends (stanza + spacy).
+- ``ai`` – enables LLM integration with OpenAI and token-based size estimation (openai + tiktoken).
+- ``all`` – installs all optional dependencies.
+
+**Individual packages** (for granular control):
+
+- ``stanza`` – enables the **StanzaSentenceTextSplitter** for sentence-level splitting using the Stanza NLP library.
+- ``spacy`` – enables the **SpacySentenceTextSplitter** for sentence-level splitting using spaCy models.
+- ``langdetect`` – enables the built-in ``LangdetectLanguageDetector`` (used by default in semantic splitters).
+- ``fasttext`` – enables the ``FastTextLanguageDetector`` for FastText model-based language identification.
+- ``openai`` – enables the **OpenAISizeEstimator** for OpenAI-compatible token counting.
 - ``tiktoken`` – enables **token-based size estimation** using OpenAI’s tokenizer.  
 
 --------------------------------
@@ -32,29 +44,33 @@ You can install ``chunkipy`` directly from PyPI using pip.
 
         pip install chunkipy
 
-.. tab:: Single extra dependency
+.. tab:: Feature groups (recommended)
 
-    Installs the core library with an additional dependency (e.g. Stanza for text splitting).
-
-    .. code-block:: bash
-
-        pip install chunkipy[stanza]
-
-.. tab:: Multiple extra dependencies
-
-    Installs ``chunkipy`` with multiple optional components.
+    Install feature groups for common use cases.
 
     .. code-block:: bash
 
-        pip install chunkipy[spacy,langdetect,tiktoken]
+        pip install "chunkipy[language-detection]"  # Language detection
+        pip install "chunkipy[nlp]"                  # NLP backends
+        pip install "chunkipy[ai]"                   # LLM integration
+        pip install "chunkipy[all]"                  # Everything
 
-.. tab:: All optional dependencies
+.. tab:: Individual packages
 
-    Installs everything — suitable for full NLP setups or development environments.
+    Installs ``chunkipy`` with specific optional dependencies.
 
     .. code-block:: bash
 
-        pip install chunkipy[all]
+        pip install "chunkipy[spacy,langdetect]"
+        pip install "chunkipy[stanza,fasttext]"
+
+.. tab:: Custom combinations
+
+    Mix and match feature groups and individual packages.
+
+    .. code-block:: bash
+
+        pip install "chunkipy[nlp,language-detection,openai]"
 
 
 --------------------------------
@@ -69,23 +85,26 @@ If you use ``poetry`` for dependency management, you can add ``chunkipy`` with e
 
         poetry add chunkipy
 
-.. tab:: Single extra dependency
+.. tab:: Feature groups (recommended)
 
     .. code-block:: bash
 
-        poetry add chunkipy[stanza]
-
-.. tab:: Multiple extra dependencies
-
-    .. code-block:: bash
-
-        poetry add chunkipy[spacy,langdetect,tiktoken]
-
-.. tab:: All optional dependencies
-
-    .. code-block:: bash
-
+        poetry add chunkipy[language-detection]
+        poetry add chunkipy[nlp]
+        poetry add chunkipy[ai]
         poetry add chunkipy[all]
+
+.. tab:: Individual packages
+
+    .. code-block:: bash
+
+        poetry add chunkipy[spacy,langdetect]
+
+.. tab:: Custom combinations
+
+    .. code-block:: bash
+
+        poetry add "chunkipy[nlp,language-detection]"
 
 
 --------------------------------
@@ -101,11 +120,13 @@ It fully supports PEP 621-style extras and can dramatically speed up installatio
 
         uv add chunkipy
 
-.. tab:: With optional extras
+.. tab:: Feature groups (recommended)
 
     .. code-block:: bash
 
-        uv add chunkipy[spacy,langdetect]
+        uv add chunkipy[language-detection]
+        uv add chunkipy[nlp]
+        uv add chunkipy[ai]
 
 .. tab:: All extras
 
@@ -114,15 +135,15 @@ It fully supports PEP 621-style extras and can dramatically speed up installatio
         uv add chunkipy[all]
 
 
---------------------------------
+-----------------------------------------------
 Install using pipx (for CLI or isolated usage)
---------------------------------
+-----------------------------------------------
 
 If you want to experiment with ``chunkipy`` in isolation, or use it in a CLI-style environment without polluting your main environment:
 
 .. code-block:: bash
 
-    pipx install "chunkipy[all]"
+    pipx install "chunkipy[spacy,stanza,langdetect,fasttext,openai,tiktoken]"
 
 This installs ``chunkipy`` in a virtual environment managed by ``pipx`` — great for trying it out quickly or keeping your global environment clean.
 
@@ -131,18 +152,14 @@ This installs ``chunkipy`` in a virtual environment managed by ``pipx`` — grea
 Verification
 --------------------------------
 
-Once installed, you can verify the installation and version:
-
-.. code-block:: bash
-
-    python -m chunkipy --version
-
-Or, if you’re in a Python shell:
+Once installed, you can verify imports:
 
 .. code-block:: python
 
     import chunkipy
-    print(chunkipy.__version__)
+    from chunkipy import FixedSizeTextChunker, RecursiveTextChunker
+
+    print("Chunkipy import OK")
 
 
 --------------------------------
@@ -155,4 +172,4 @@ Next steps
 - 🔍 Explore :doc:`size_estimators/overview` to learn about different size estimation methods.
 - 🧩 Explore :doc:`text_chunkers/overview` to learn about the different chunking strategies.
 - ✂️ Explore :doc:`text_splitters/overview` to learn about the different text splitting options.  
-- 🌍 Explore :doc:`language/overview` to learn about language detection options.
+- 🌍 Explore :doc:`language_detectors/overview` to learn about the available language detector APIs.

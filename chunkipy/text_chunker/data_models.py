@@ -37,35 +37,38 @@ class TextPartsMixin:
         return ''.join(text_part.text for text_part in self)
 
     def __repr__(self) -> str:
-        return f"{self.__class__.__name__}(size={self.size}, elements={list(self)}"
+        return f"{self.__class__.__name__}(size={self.size}, elements={list(self)})"
 
 
 
 
 
 class TextParts (TextPartsMixin, List[TextPart]):
-    """A list-like collection of TextParts.
-    Inherits from list to act as a standard list, and from TextPartsMixin to provide additional methods for aggregated operations (e.g. size, text).
+    """List-like collection of :class:`TextPart` values.
+
+    This container preserves the normal ``list`` API while exposing aggregated
+    ``size`` and ``text`` properties via :class:`TextPartsMixin`.
     """
     pass
 
 
-class Overlap (TextPartsMixin, Deque [TextPart]):
-    """A deque-like collection of TextParts with utility methods for aggregation.
-    Inherits from deque to act as a standard deque, and from TextParts to provide additional methods for aggregated operations (e.g. size, text).
-    """
+class Overlap (TextPartsMixin, Deque[TextPart]):
+    """Deque-like collection used to carry overlap between consecutive chunks."""
     pass
 
 
 
 @dataclass
 class Chunk:
-    """Represents a single chunk of text, which consists of multiple text parts.
+    """Single chunk returned by a text chunker.
 
-    Computed Properties:
-    :param text: Represents the full text of the chunk by joining all 'text' values from its 'text parts.
-    :param overlap: A list of TextPart objects that make up the chunk.
-    :param content: A list of TextPart objects that make up the chunk.
+    A chunk is composed of two ordered collections:
+
+    - ``overlap``: text parts repeated from the previous chunk to preserve context
+    - ``content``: text parts that are unique to the current chunk
+
+    The ``text`` and ``size`` properties are computed over the combined
+    ``text_parts`` view.
     """
 
     overlap: Overlap = field(default_factory=Overlap) # Ensure proper initialization
@@ -92,55 +95,32 @@ class Chunk:
     
     @property
     def text_parts(self) -> TextParts:
-        """Returns the full concatenated text of the chunk by joining all 'text' values from the TextPart objects.
-
-        Returns:
-            str: The full text of the chunk, concatenated from all text parts.
-        """
+        """Return a combined ordered view of overlap and content text parts."""
         return TextParts (chain(self.overlap, self.content))
 
     def __repr__(self) -> str:
-        return f"Chunk(size={self.size}, text='{self.text}, overlap={self.overlap}, content={self.content}"
+        return f"Chunk(size={self.size}, text='{self.text}', overlap={self.overlap}, content={self.content})"
         
 
 class Chunks(List[Chunk]):
-    """A list-like collection of chunks with utility methods for aggregation.
-
-    Inherits from 'list' to act as a standard list, while providing additional methods for aggregated operations.
-    """
+    """List-like collection of :class:`Chunk` objects returned by chunkers."""
 
     def get_all_text_parts(self) -> List[List[str]]:
-        """Returns all text parts from each chunk as a list of lists.
+        """Return the text parts for every chunk.
 
         Returns:
-            List[List[str]]: A list of lists, where each inner list contains the text parts of a chunk.
+            List[List[str]]: A list of per-chunk text part collections.
         """
         return [chunk.text_parts for chunk in self]
 
 
     def get_all_text(self) -> List[str]:
-        """Returns the full text from all chunks as a list.
+        """Return the serialized text for every chunk.
         
-         Returns:
+        Returns:
             List[str]: A list of strings, where each string is the full text of a chunk.
         """
         return [chunk.text for chunk in self]
 
 
-class Overlap(Deque[TextPart]):
-    """A deque-like collection of TextParts with utility methods for aggregation.
-    Inherits from deque to act as a standard deque, while providing additional
-    methods for aggregated operations (e.g. size).
-    """
-    
-    @property
-    def size(self) -> str:
-        """Calculates and returns the total size of all TextPart objects.
-        
-        Returns:
-            int: The total size of all TextPart objects.
-        """
-        return sum(part.size for part in self) if self else 0
 
-    def __repr__(self) -> str:
-        return f"Overlap(size={self.size}, elements={list(self)})"

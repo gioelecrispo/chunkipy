@@ -1,18 +1,15 @@
-import logging
-from typing import Generator, Iterable, List
-from chunkipy.text_chunker.base_text_chunker import BaseTextChunker
-from chunkipy.text_chunker.data_models import Chunk, Chunks, Overlap, TextPart
-from chunkipy.text_splitters import *
-from chunkipy.size_estimators import BaseSizeEstimator, WordSizeEstimator
+from typing import Generator
+from chunkipy.text_chunker.base_overlap_text_chunker import BaseOverlapTextChunker
+from chunkipy.text_chunker.data_models import TextPart
+from chunkipy.size_estimators import BaseSizeEstimator
 
 
+class FixedSizeTextChunker(BaseOverlapTextChunker):
+    """Chunk text into fixed-size slices using the configured size estimator.
 
-class FixedSizeTextChunker(BaseTextChunker):
-
-    def __init__(self, chunk_size: int = None,
-                size_estimator: BaseSizeEstimator = None,
-                overlap_ratio: float = 0.0):
-        super().__init__(chunk_size, size_estimator, overlap_ratio)
+    Each segment emitted by ``size_estimator.segment`` is treated as a unit of
+    size ``1`` during chunk assembly.
+    """
 
     def split_text(self, text: str) -> Generator [TextPart, None, None]:
         """Split the provided text into smaller parts based on size estimator. 

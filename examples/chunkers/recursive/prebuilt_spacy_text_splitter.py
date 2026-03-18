@@ -1,5 +1,6 @@
 from chunkipy.size_estimators import WordSizeEstimator
 from chunkipy import RecursiveTextChunker
+from chunkipy.utils import MissingDependencyError
 
 
 if __name__ == "__main__":

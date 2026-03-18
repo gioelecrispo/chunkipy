@@ -21,7 +21,7 @@ class CharSizeEstimator(BaseSizeEstimator):
     
     def segment(self, text: str) -> Generator[str, None, None]:
         """
-        Segment thegiven text into chars.
+        Segment the given text into chars.
         
         Args:
             text (str): The text to analyze.

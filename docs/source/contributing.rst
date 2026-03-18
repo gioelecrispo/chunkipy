@@ -10,8 +10,7 @@ Please make sure to include appropriate **tests** and follow the official Python
 
 Development setup
 ------------------
-You can set up your development environment using **Poetry**, **uv**, or **pip**.  
-We recommend ``uv`` for the fastest dependency management.
+You can set up your development environment using **uv** (recommended) or **pip**.
 
 **1. Clone the repository**
 
@@ -34,31 +33,22 @@ You can use any of the following:
 
 **3. Install development dependencies**
 
-.. tab:: Poetry
-
-    .. code-block:: bash
-
-        pip install poetry
-        poetry install               # Core
-        poetry install --all-extras  # With all optional deps
-
 .. tab:: uv
 
     .. code-block:: bash
 
         pip install uv
-        uv sync                      # Core
-        uv sync --all-extras         # With all optional deps
+        uv sync --all-extras --group test --group docs
 
 .. tab:: pip
 
     .. code-block:: bash
 
-        pip install -e .[dev,all]    # Editable install with all extras
+        pip install -e .[dev,all]    # Editable install with docs+test+all extras
 
 
 Linting & formatting
-------------------
+--------------------
 We use ``ruff`` and ``black`` to keep the codebase consistent.  
 Run the following before submitting a PR:
 
@@ -70,19 +60,11 @@ Run the following before submitting a PR:
 
 Testing
 ------------------
-We use ``pytest`` as the main testing framework.  
-Install test dependencies and run the suite with coverage:
+We use ``pytest`` as the main testing framework.
 
 .. code-block:: bash
 
-    poetry install --with test
-    pytest --cov=chunkipy --cov-report=term-missing
-
-Or with ``uv``:
-
-.. code-block:: bash
-
-    uv run pytest --cov=chunkipy
+    uv run pytest --cov=chunkipy --cov-report=term-missing
 
 
 Documentation
@@ -94,8 +76,8 @@ To build docs locally:
 
 .. code-block:: bash
 
-    poetry install --only docs
-    sphinx-multiversion docs/source docs/build/html
+    uv sync --group docs
+    uv run sphinx-multiversion docs/source docs/build/html
 
 Then open ``docs/build/html/index.html`` in your browser.
 

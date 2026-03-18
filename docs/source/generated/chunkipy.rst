@@ -10,6 +10,7 @@
    :toctree:
    :recursive:
 
+   language_detectors
    size_estimators
    text_chunker
    text_splitters

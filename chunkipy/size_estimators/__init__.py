@@ -1,3 +1,5 @@
+"""Public size estimator classes exposed by :mod:`chunkipy.size_estimators`."""
+
 from chunkipy.size_estimators.base_size_estimator import BaseSizeEstimator
 from chunkipy.size_estimators.word_size_estimator import WordSizeEstimator
 from chunkipy.size_estimators.char_size_estimator import CharSizeEstimator

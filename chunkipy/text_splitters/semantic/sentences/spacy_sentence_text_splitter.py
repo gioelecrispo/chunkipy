@@ -1,5 +1,6 @@
 import logging
 from typing import Dict, List
+from chunkipy.language_detectors import BaseLanguageDetector, LangdetectLanguageDetector
 from chunkipy.text_splitters.semantic.base_semantic_text_splitter import BaseSemanticTextSplitter
 
 
@@ -32,21 +33,44 @@ class SpacySentenceTextSplitter(BaseSemanticTextSplitter):
         "en": "en_core_web_sm"
     }
 
-    def __init__(self, models_map: Dict [str, str] = DEFAULT_MODELS_MAP, text_limit: int = None):
+    def __init__(self, models_map: Dict[str, str] | None = None, text_limit: int = None,
+                 language_detector: BaseLanguageDetector | None = None):
+        """Initialize the spaCy-based sentence splitter.
+
+        Args:
+            models_map: Optional mapping from detected language code to spaCy
+                model name.
+            text_limit: Maximum input window processed at once.
+            language_detector: Optional detector used to resolve the input
+                language before selecting a spaCy model.
+        """
         super().__init__(text_limit)
-        self.models_map = models_map
+        self.models_map = dict(models_map or self.DEFAULT_MODELS_MAP)
         self.models = dict()
+        self.language_detector = language_detector or LangdetectLanguageDetector()
+        self._spacy_module = None
+
+    def _get_spacy_module(self):
+        """Return the spaCy module dependency.
+
+        This method can be overridden by subclasses for advanced integrations.
+        """
+        if self._spacy_module is None:
+            self._spacy_module = import_dependencies(
+                extra="spacy",
+                package_name="spacy"
+            )
+        return self._spacy_module
 
     def _load_model(self, lang: str):
-        spacy = import_dependencies(
-            extra="spacy", 
-            package_name="spacy"
-        )
+        """Load and cache the spaCy model matching the detected language."""
+        spacy = self._get_spacy_module()
 
+        requested_lang = lang
         if lang not in self.models_map:
             lang = self.DEFAULT_LANG
             logging.warning(
-                f"Language '{lang}' not supported. Defaulting to '{self.DEFAULT_LANG}'. If you want to use a different language, please provide a valid model name in the 'models_map' parameter, e.g. models_map['it'] = 'it_core_news_sm'."
+                f"Language '{requested_lang}' not supported. Defaulting to '{self.DEFAULT_LANG}'. If you want to use a different language, please provide a valid model name in the 'models_map' parameter, e.g. models_map['it'] = 'it_core_news_sm'."
             )
         if lang not in self.models:
             try:
@@ -57,11 +81,11 @@ class SpacySentenceTextSplitter(BaseSemanticTextSplitter):
 
 
     def _split(self, text: str) -> List[str]:
-        langdetect = import_dependencies(
-            extra="langdetect", 
-            package_name="langdetect"
-        )
-        lang = langdetect.detect(text)
+        """Split text into sentences using language detection plus a spaCy model."""
+        if not text:
+            return []
+
+        lang = self.language_detector.detect(text)
         sentence_tokenizer = self._load_model(lang)
         with sentence_tokenizer.select_pipes(enable=["tok2vec", "parser", "senter"]):
             doc = sentence_tokenizer(text)

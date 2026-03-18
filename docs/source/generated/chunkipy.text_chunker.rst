@@ -1,4 +1,4 @@
-chunkipy.text\_chunker
+﻿chunkipy.text\_chunker
 ======================
 
 .. automodule:: chunkipy.text_chunker
@@ -10,6 +10,7 @@ chunkipy.text\_chunker
    :toctree:
    :recursive:
 
+   base_overlap_text_chunker
    base_text_chunker
    data_models
    fixed_size

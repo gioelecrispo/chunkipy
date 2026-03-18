@@ -1,5 +1,7 @@
+"""Shared utility helpers used across chunkipy internals and optional extras."""
+
 import importlib
-from typing import List
+from typing import Iterable, List
 
 INSTRUCTIONS = """
 chunkipy error: missing {package_name}.
@@ -16,14 +18,36 @@ or
 
 
 def format_instructions(*, extra: str, package_name: str) -> str:
+    """Build the installation hint shown when an optional dependency is missing."""
     return INSTRUCTIONS.format(extra=extra, package_name=package_name)
 
 
 class MissingDependencyError(Exception):
+    """Raised when an optional dependency required by an API is not installed."""
     pass
 
 
-def import_dependencies(extra: str, package_name: str, attribute_names: List[str] = []):
+def import_dependencies(
+    extra: str,
+    package_name: str,
+    attribute_names: Iterable[str] | None = None,
+):
+    """Import an optional dependency and optionally fetch named attributes.
+
+    Args:
+        extra: Name of the optional extra exposed by the package.
+        package_name: Importable module name.
+        attribute_names: Optional attribute names to resolve from the module.
+
+    Returns:
+        The imported module when ``attribute_names`` is empty, otherwise a list
+        containing the module followed by the requested attributes.
+
+    Raises:
+        MissingDependencyError: If the module or any requested attribute cannot
+            be imported.
+    """
+    attribute_names = list(attribute_names or [])
     module = None
     attributes = tuple(None for _ in attribute_names)
     try:

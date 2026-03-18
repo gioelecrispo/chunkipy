@@ -16,8 +16,7 @@ Please make sure to:
 
 ## 🧑‍💻 Development Setup
 
-You can set up your development environment using **Poetry**, **uv**, or **pip**.  
-We recommend **uv** for the fastest dependency management.
+You can set up your development environment using **uv** (recommended) or **pip**.
 
 ### 1. Clone the repository
 
@@ -40,26 +39,17 @@ uv venv && source .venv/bin/activate
 
 ### 3. Install development dependencies
 
-#### With Poetry
-
-```bash
-pip install poetry
-poetry install               # Core
-poetry install --all-extras  # With all optional dependencies
-```
-
-#### With uv
+#### With uv (recommended)
 
 ```bash
 pip install uv
-uv sync                      # Core
-uv sync --all-extras         # With all optional dependencies
+uv sync --all-extras --group test --group docs
 ```
 
 #### With pip
 
 ```bash
-pip install -e .[dev,all]    # Editable install with all extras
+pip install -e .[dev,all]    # Editable install with docs+test+all extras
 ```
 
 ## 🧹 Linting & Formatting
@@ -86,17 +76,21 @@ This will automatically lint and format your code before each commit.
 
 We use pytest as the main testing framework.
 
-### Run tests with Poetry
+### Test doubles policy (no monkey patch)
 
-```bash
-poetry install --with test
-pytest --cov=chunkipy --cov-report=term-missing
-```
+To keep tests deterministic and resilient, prefer **fake subclasses** and
+dependency injection over monkey patching.
+
+- Use helper names like `Fake...`, `Stub...`, `Dummy...` (avoid `Test...` for helper classes)
+- Keep fakes minimal: override only what is needed
+- Avoid runtime patching of import paths unless strictly necessary
+- Keep fake behavior deterministic and explicit
+- Validate edge cases through public APIs
 
 ### Run tests with uv
 
 ```bash
-uv run pytest --cov=chunkipy
+uv run pytest --cov=chunkipy --cov-report=term-missing
 ```
 
 ### Run tests with pip
@@ -115,8 +109,8 @@ Chunkipy uses Sphinx for documentation, with:
 To build the docs locally:
 
 ```bash
-poetry install --only docs
-sphinx-multiversion docs/source docs/build/html
+uv sync --group docs
+uv run sphinx-multiversion docs/source docs/build/html
 ```
 
 Then open:

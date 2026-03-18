@@ -1,12 +1,11 @@
-from abc import ABC
+from abc import ABC, abstractmethod
 from typing import Generator
 
 
 class BaseSizeEstimator(ABC):
-    """
-    Base class for size estimators.
-    """
+    """Base class for strategies that measure and segment text size."""
 
+    @abstractmethod
     def estimate_size(self, text: str) -> int:
         """
         Estimate the size of the given text.
@@ -15,7 +14,7 @@ class BaseSizeEstimator(ABC):
             text (str): The text to estimate the size of.
 
         Returns:
-            int: The estimated size of the text in bytes.
+            int: Estimated size in units defined by the concrete estimator.
         """
         raise NotImplementedError("Subclasses must implement the estimate_size method.")
     

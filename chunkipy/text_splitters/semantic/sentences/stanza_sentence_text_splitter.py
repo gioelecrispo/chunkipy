@@ -1,4 +1,5 @@
 from typing import List
+from chunkipy.language_detectors import BaseLanguageDetector, LangdetectLanguageDetector
 from chunkipy.text_splitters.semantic.base_semantic_text_splitter import BaseSemanticTextSplitter
 from chunkipy.utils import import_dependencies
 
@@ -77,17 +78,41 @@ class StanzaSentenceTextSplitter(BaseSemanticTextSplitter):
     }
 
 
+    def __init__(self, text_limit: int = None,
+                 language_detector: BaseLanguageDetector | None = None):
+        """Initialize the Stanza-based sentence splitter.
+
+        Args:
+            text_limit: Maximum input window processed at once.
+            language_detector: Optional detector used to resolve the input
+                language before selecting a Stanza pipeline.
+        """
+        super().__init__(text_limit)
+        self.language_detector = language_detector or LangdetectLanguageDetector()
+        self._stanza_components = None
+
+    def _get_stanza_components(self):
+        """Return ``(DownloadMethod, Pipeline)`` from the stanza dependency.
+
+        This method can be overridden by subclasses for advanced integrations.
+        """
+        if self._stanza_components is None:
+            _, DownloadMethod, Pipeline = import_dependencies(
+                extra="stanza",
+                package_name="stanza",
+                attribute_names=["DownloadMethod", "Pipeline"]
+            )
+            self._stanza_components = (DownloadMethod, Pipeline)
+        return self._stanza_components
+
     def _split(self, text: str) -> List[str]:
-        langdetect = import_dependencies(
-            extra="langdetect", 
-            package_name="langdetect"
-        )
-        _, DownloadMethod, Pipeline = import_dependencies(
-            extra="sentence",
-            package_name="stanza",
-            attribute_names=["DownloadMethod", "Pipeline"]
-        )
-        lang = langdetect.detect(text)
+        """Split text into sentences using language detection plus a Stanza pipeline."""
+        if not text:
+            return []
+
+        DownloadMethod, Pipeline = self._get_stanza_components()
+
+        lang = self.language_detector.detect(text)
         
         stanza_lang = self.langdetect_stanza_mapping.get(lang, None)
         if stanza_lang is None:
