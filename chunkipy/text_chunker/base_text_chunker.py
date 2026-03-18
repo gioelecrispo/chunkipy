@@ -19,7 +19,7 @@ class BaseTextChunker(ABC):
     def __init__(self, chunk_size: int = None,
                 size_estimator: BaseSizeEstimator = None):
 
-        if chunk_size and not isinstance(chunk_size, int):
+        if chunk_size is not None and (not isinstance(chunk_size, int) or chunk_size <= 0):
             raise ValueError(f"chunk_size must be a positive integer. Current value: {chunk_size}")
 
         self.chunk_size = chunk_size if chunk_size is not None else DEFAULT_CHUNK_SIZE
@@ -37,6 +37,6 @@ class BaseTextChunker(ABC):
     def _validate_text(self, text: str):
         """Validate user-provided text before chunking."""
         if text is None or not isinstance(text, str):
-            raise ValueError(f"Text must be a non-empty string. Text type: {type(text)}")
+            raise TypeError(f"Text must be a non-empty string. Text type: {type(text)}")
         if not text.strip():
             raise ValueError("Text cannot be empty or whitespace only.")

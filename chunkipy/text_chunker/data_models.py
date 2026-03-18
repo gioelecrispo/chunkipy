@@ -1,7 +1,6 @@
 from collections import deque
 from dataclasses import dataclass, field
 from itertools import chain
-from typing import Deque, List
 
 @dataclass
 class TextPart:
@@ -43,7 +42,7 @@ class TextPartsMixin:
 
 
 
-class TextParts (TextPartsMixin, List[TextPart]):
+class TextParts (TextPartsMixin, list):
     """List-like collection of :class:`TextPart` values.
 
     This container preserves the normal ``list`` API while exposing aggregated
@@ -52,7 +51,7 @@ class TextParts (TextPartsMixin, List[TextPart]):
     pass
 
 
-class Overlap (TextPartsMixin, Deque[TextPart]):
+class Overlap (TextPartsMixin, deque):
     """Deque-like collection used to carry overlap between consecutive chunks."""
     pass
 
@@ -102,10 +101,10 @@ class Chunk:
         return f"Chunk(size={self.size}, text='{self.text}', overlap={self.overlap}, content={self.content})"
         
 
-class Chunks(List[Chunk]):
+class Chunks(list):
     """List-like collection of :class:`Chunk` objects returned by chunkers."""
 
-    def get_all_text_parts(self) -> List[TextParts]:
+    def get_all_text_parts(self) -> list[TextParts]:
         """Return the text parts for every chunk.
 
         Returns:
@@ -114,7 +113,7 @@ class Chunks(List[Chunk]):
         return [chunk.text_parts for chunk in self]
 
 
-    def get_all_text(self) -> List[str]:
+    def get_all_text(self) -> list[str]:
         """Return the serialized text for every chunk.
         
         Returns:
