@@ -43,7 +43,7 @@ uv venv && source .venv/bin/activate
 
 ```bash
 pip install uv
-uv sync --all-extras --group test --group docs
+uv sync --all-extras --group test --group lint --group docs
 ```
 
 #### With pip
