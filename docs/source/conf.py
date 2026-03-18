@@ -33,7 +33,7 @@ exclude_patterns = []
 html_theme = "sphinx_rtd_theme"  # Use Read the Docs Theme
 html_theme_options = {
     'logo_only': True,
-    'canonical_url': 'https://gioelecrispo.github.io/chunkipy',
+    'canonical_url': 'https://gioelecrispo.github.io/chunkipy/',
     'prev_next_buttons_location': 'bottom',
     'style_external_links': False,
     'vcs_pageview_mode': '',
