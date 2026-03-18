@@ -1,5 +1,6 @@
 from chunkipy import RecursiveTextChunker
 from chunkipy.text_splitters.semantic.sentences import StanzaSentenceTextSplitter
+from chunkipy.utils import MissingDependencyError
 
 
 if __name__ == "__main__":
