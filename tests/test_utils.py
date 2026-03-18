@@ -1,9 +1,8 @@
 import unittest
 import pytest
-import types
 from chunkipy import utils
 import math
-import math
+
 
 class TestUtils(unittest.TestCase):
     def test_format_instructions(self):

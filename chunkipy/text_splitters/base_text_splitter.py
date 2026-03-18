@@ -2,9 +2,7 @@ from abc import ABC, abstractmethod
 
 
 class BaseTextSplitter(ABC):
-    """
-    Base class for text splitters.
-    """
+    """Base class for splitter strategies that divide text into smaller pieces."""
 
     def split(self, text: str) -> list[str]:
         """
@@ -21,9 +19,7 @@ class BaseTextSplitter(ABC):
         return self._split(text)  
 
     def _validate_text(self, text: str):
-        """
-        Validate the input text.
-        """
+        """Validate the input text passed to :meth:`split`."""
         if text is None or not isinstance(text, str):
             raise TypeError(f"Text must be a non-empty string. Current value: {text}")
         if not text.strip():

@@ -1,3 +1,5 @@
+"""Public text splitter classes exposed by :mod:`chunkipy.text_splitters`."""
+
 from chunkipy.text_splitters.base_text_splitter import BaseTextSplitter
 from chunkipy.text_splitters.basic_text_splitters import (
     SeparatorTextSplitter,

@@ -27,6 +27,7 @@ class BaseSemanticTextSplitter(BaseTextSplitter):
     DEFAULT_TEXT_LIMIT = 1000000
 
     def __init__(self, text_limit: int = None):
+        """Initialize the splitter with an optional maximum text window size."""
         self.text_limit = text_limit or self.DEFAULT_TEXT_LIMIT
 
     @abstractmethod

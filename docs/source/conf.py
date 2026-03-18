@@ -23,6 +23,7 @@ extensions = [
     "sphinx_multiversion",  # Enable versioning
     "sphinx.ext.autosummary",  # Auto-generate summary tables for modules/classes
     "sphinx.ext.intersphinx",  # Cross reference library documentation
+    "sphinx_inline_tabs"  # Enable inline tabs .. tab::
 ]
 
 templates_path = ["_templates"]
@@ -31,7 +32,8 @@ exclude_patterns = []
 #-- HTML Theme Settings --
 html_theme = "sphinx_rtd_theme"  # Use Read the Docs Theme
 html_theme_options = {
-    'logo_only': False,
+    'logo_only': True,
+    'canonical_url': 'https://gioelecrispo.github.io/chunkipy/',
     'prev_next_buttons_location': 'bottom',
     'style_external_links': False,
     'vcs_pageview_mode': '',
@@ -39,7 +41,7 @@ html_theme_options = {
     'version_selector': True,
     'language_selector': True,
     # Toc options
-    'collapse_navigation': True,
+    'collapse_navigation': False,
     'sticky_navigation': True,
     'navigation_depth': 4,
     'includehidden': True,
@@ -50,6 +52,15 @@ html_static_path = ["_static"]
 html_css_files = [
     "css/style.css",
 ]
+html_logo = "img/logo-landscape.png"
+html_context = {
+    "display_github": True,
+    "github_user": "gioelecrispo",
+    "github_repo": "chunkipy",
+    "github_version": "main",
+    "conf_py_path": "/docs/source/",
+}
+
 
 # -- Autodoc Settings --
 autodoc_typehints = "description"  # Render type hints in docstrings
@@ -64,9 +75,7 @@ autosummary_generate = True  # Enable autosummary generation
 
 #-- Cross reference Documentation Settings
 intersphinx_mapping = {
-    "python": ("https://docs.python.org/3", None),
-    "stanza": ("https://stanfordnlp.github.io/stanza", None),
-    "spacy": ("https://spacy.io/", None),
+    "python": ("https://docs.python.org/3", None)
 }
 
 #-- Multiversion Settings

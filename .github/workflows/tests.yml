@@ -27,23 +27,25 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
 
-      - name: Cache pip
+      - name: Set up uv
+        uses: astral-sh/setup-uv@v3
+
+      - name: Cache uv
         uses: actions/cache@v4
         with:
-          path: .cache/pip
-          key: ${{ runner.os }}-pip-${{ matrix.python-version }}-${{ hashFiles('**/poetry.lock') }}
+          path: |
+            ~/.cache/uv
+            .venv
+          key: ${{ runner.os }}-uv-${{ matrix.python-version }}-${{ hashFiles('**/pyproject.toml', '**/uv.lock') }}
           restore-keys: |
-            ${{ runner.os }}-pip-${{ matrix.python-version }}-
-
-      - name: Install Poetry
-        run: pip install poetry
+            ${{ runner.os }}-uv-${{ matrix.python-version }}-
 
       - name: Install test dependencies
-        run: poetry install --with test --without docs
+        run: uv sync --all-extras --group test
 
       - name: Run tests with coverage
         run: |
-          poetry run pytest --cov=chunkipy --cov-report=xml --cov-fail-under=80
+          uv run pytest --cov=chunkipy --cov-report=xml --cov-fail-under=80
 
       - name: Upload coverage report
         uses: actions/upload-artifact@v4
