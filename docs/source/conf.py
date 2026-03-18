@@ -57,7 +57,8 @@ html_context = {
     "display_github": True,
     "github_user": "gioelecrispo",
     "github_repo": "chunkipy",
-    "github_version": "main/",
+    "github_version": "main",
+    "conf_py_path": "/docs/source/",
 }
 
 
