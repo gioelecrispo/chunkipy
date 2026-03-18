@@ -3,9 +3,9 @@ Overview
 
 .. sidebar:: Language detector classes
 
-	- :class:`BaseLanguageDetector <chunkipy.language_detectors.BaseLanguageDetector>`
-	- :class:`LangdetectLanguageDetector <chunkipy.language_detectors.LangdetectLanguageDetector>`
-	- :class:`FastTextLanguageDetector <chunkipy.language_detectors.FastTextLanguageDetector>`
+   - :class:`BaseLanguageDetector <chunkipy.language_detectors.BaseLanguageDetector>`
+   - :class:`LangdetectLanguageDetector <chunkipy.language_detectors.LangdetectLanguageDetector>`
+   - :class:`FastTextLanguageDetector <chunkipy.language_detectors.FastTextLanguageDetector>`
 
 
 Chunkipy provides optional language detectors for multilingual pipelines.
