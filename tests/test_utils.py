@@ -2,7 +2,6 @@ import unittest
 import pytest
 from chunkipy import utils
 import math
-import math
 
 
 class TestUtils(unittest.TestCase):
