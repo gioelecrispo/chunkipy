@@ -105,11 +105,11 @@ class Chunk:
 class Chunks(List[Chunk]):
     """List-like collection of :class:`Chunk` objects returned by chunkers."""
 
-    def get_all_text_parts(self) -> List[List[str]]:
+    def get_all_text_parts(self) -> List[TextParts]:
         """Return the text parts for every chunk.
 
         Returns:
-            List[List[str]]: A list of per-chunk text part collections.
+            List[TextParts]: A list of per-chunk :class:`TextParts` collections.
         """
         return [chunk.text_parts for chunk in self]
 
