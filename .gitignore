@@ -25,6 +25,7 @@ __pycache__/
 # Distribution / packaging
 .Python
 build/
+!docs/build/
 develop-eggs/
 dist/
 eggs/
@@ -64,7 +65,11 @@ coverage.xml
 *.pot
 
 # Sphinx documentation
-docs/build/
+# Ignore everything in docs/build except html directory
+docs/build/*
+!docs/build/html
+docs/build/html/*
+!docs/build/html/index.html
 
 # VS Code
 .vscode/

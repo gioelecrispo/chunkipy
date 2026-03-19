@@ -13,7 +13,6 @@ class TextPart:
     text: str
 
 
-
 class TextPartsMixin:
     """A base class with utilities for handling collections of TextPart."""
 
@@ -39,10 +38,7 @@ class TextPartsMixin:
         return f"{self.__class__.__name__}(size={self.size}, elements={list(self)})"
 
 
-
-
-
-class TextParts (TextPartsMixin, list):
+class TextParts(TextPartsMixin, list[TextPart]):
     """List-like collection of :class:`TextPart` values.
 
     This container preserves the normal ``list`` API while exposing aggregated
@@ -51,7 +47,7 @@ class TextParts (TextPartsMixin, list):
     pass
 
 
-class Overlap (TextPartsMixin, deque):
+class Overlap(TextPartsMixin, deque[TextPart]):
     """Deque-like collection used to carry overlap between consecutive chunks."""
     pass
 
@@ -69,7 +65,6 @@ class Chunk:
     The ``text`` and ``size`` properties are computed over the combined
     ``text_parts`` view.
     """
-
     overlap: Overlap = field(default_factory=Overlap) # Ensure proper initialization
     content: TextParts = field(default_factory=TextParts) # Ensure proper initialization
 
@@ -101,7 +96,7 @@ class Chunk:
         return f"Chunk(size={self.size}, text='{self.text}', overlap={self.overlap}, content={self.content})"
         
 
-class Chunks(list):
+class Chunks(list[Chunk]):
     """List-like collection of :class:`Chunk` objects returned by chunkers."""
 
     def get_all_text_parts(self) -> list[TextParts]:
